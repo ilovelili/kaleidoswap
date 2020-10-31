@@ -2,9 +2,11 @@ require("dotenv").config();
 const { ethers } = require("ethers");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const infuraUri = process.env.INFURA_URI || "";
-const infuraTestnetUri = process.env.INFURA_TESTNET_URI || "";
+const infuraUri = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`;
+const infuraTestnetUri = `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`;
 const privKey = process.env.PRIVATE_KEY || "";
+
+console.log("prv  key", privKey);
 
 module.exports = {
   networks: {
@@ -20,7 +22,7 @@ module.exports = {
       networkCheckTimeout: 10000,
       provider: () => new HDWalletProvider(privKey, infuraTestnetUri),
       network_id: 4, // rinkeby
-      gasPrice: ethers.utils.parseUnits("70", "gwei").toString(),
+      gasPrice: ethers.utils.parseUnits("33", "gwei").toString(),
       gas: 6000000,
     },
     development: {

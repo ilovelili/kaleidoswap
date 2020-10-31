@@ -17,11 +17,11 @@ module.exports = async function (deployer) {
   );
 
   // Make OrangeFarmer contract token owner
-  const masterChef = await OrangeFarmer.deployed();
-  await juicyToken.transferOwnership(masterChef.address);
+  const orangeFarmer = await OrangeFarmer.deployed();
+  await juicyToken.transferOwnership(orangeFarmer.address);
 
   // Add Liquidity pool for rewards, e.g., "ETH/DAI Pool"
-  await masterChef.add(
+  await orangeFarmer.add(
     process.env.ALLOCATION_POINT,
     process.env.LP_TOKEN_ADDRESS,
     false

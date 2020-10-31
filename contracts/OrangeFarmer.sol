@@ -97,8 +97,8 @@ contract OrangeFarmer is Ownable {
         juicy = _juicy;
         devaddr = _devaddr;
         juicyPerBlock = _juicyPerBlock;
-        bonusEndBlock = _bonusEndBlock;
         startBlock = _startBlock;
+        bonusEndBlock = _bonusEndBlock;
     }
 
     function poolLength() external view returns (uint256) {
@@ -265,7 +265,7 @@ contract OrangeFarmer is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from MasterChef.
+    // Withdraw LP tokens from OrangeFarmer.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];

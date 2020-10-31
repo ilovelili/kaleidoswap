@@ -48,10 +48,10 @@ contract GovernorAlpha {
         return 17280;
     } // ~3 days in blocks (assuming 15s blocks)
 
-    /// @notice The address of the Compound Protocol Timelock
+    /// @notice The address of the Juicy Protocol Timelock
     TimelockInterface public timelock;
 
-    /// @notice The address of the Compound governance token
+    /// @notice The address of the Juicy governance token
     // XXX: CompInterface public comp;
     JuicyToken public juicy;
 
