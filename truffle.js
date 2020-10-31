@@ -5,8 +5,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const infuraUri = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`;
 const infuraTestnetUri = `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`;
 const privKey = process.env.PRIVATE_KEY || "";
-
-console.log("prv  key", privKey);
+const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "";
 
 module.exports = {
   networks: {
@@ -39,7 +38,7 @@ module.exports = {
   },
   plugins: ["truffle-plugin-verify"],
   api_keys: {
-    etherscan: process.env.ETHERSCAN_API_KEY,
+    etherscan: etherscanApiKey,
   },
   compilers: {
     solc: {

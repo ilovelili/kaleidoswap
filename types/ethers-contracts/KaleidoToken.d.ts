@@ -20,7 +20,7 @@ import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
-interface JuicyTokenInterface extends ethers.utils.Interface {
+interface KaleidoTokenInterface extends ethers.utils.Interface {
   functions: {
     "DELEGATION_TYPEHASH()": FunctionFragment;
     "DOMAIN_TYPEHASH()": FunctionFragment;
@@ -213,7 +213,7 @@ interface JuicyTokenInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
-export class JuicyToken extends Contract {
+export class KaleidoToken extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -224,7 +224,7 @@ export class JuicyToken extends Contract {
   removeAllListeners(eventName: EventFilter | string): this;
   removeListener(eventName: any, listener: Listener): this;
 
-  interface: JuicyTokenInterface;
+  interface: KaleidoTokenInterface;
 
   functions: {
     /**

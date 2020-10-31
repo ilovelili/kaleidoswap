@@ -14,34 +14,34 @@ export class OrangeFarmerFactory extends ContractFactory {
   }
 
   deploy(
-    _juicy: string,
+    _kaleido: string,
     _devaddr: string,
-    _juicyPerBlock: BigNumberish,
+    _kaleidoPerBlock: BigNumberish,
     _startBlock: BigNumberish,
     _bonusEndBlock: BigNumberish,
     overrides?: Overrides
   ): Promise<OrangeFarmer> {
     return super.deploy(
-      _juicy,
+      _kaleido,
       _devaddr,
-      _juicyPerBlock,
+      _kaleidoPerBlock,
       _startBlock,
       _bonusEndBlock,
       overrides || {}
     ) as Promise<OrangeFarmer>;
   }
   getDeployTransaction(
-    _juicy: string,
+    _kaleido: string,
     _devaddr: string,
-    _juicyPerBlock: BigNumberish,
+    _kaleidoPerBlock: BigNumberish,
     _startBlock: BigNumberish,
     _bonusEndBlock: BigNumberish,
     overrides?: Overrides
   ): TransactionRequest {
     return super.getDeployTransaction(
-      _juicy,
+      _kaleido,
       _devaddr,
-      _juicyPerBlock,
+      _kaleidoPerBlock,
       _startBlock,
       _bonusEndBlock,
       overrides || {}
@@ -65,8 +65,8 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "contract JuicyToken",
-        name: "_juicy",
+        internalType: "contract KaleidoToken",
+        name: "_kaleido",
         type: "address",
       },
       {
@@ -76,7 +76,7 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "_juicyPerBlock",
+        name: "_kaleidoPerBlock",
         type: "uint256",
       },
       {
@@ -231,10 +231,10 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "juicy",
+    name: "kaleido",
     outputs: [
       {
-        internalType: "contract JuicyToken",
+        internalType: "contract KaleidoToken",
         name: "",
         type: "address",
       },
@@ -245,7 +245,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "juicyPerBlock",
+    name: "kaleidoPerBlock",
     outputs: [
       {
         internalType: "uint256",
@@ -312,7 +312,7 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "accJuicyPerShare",
+        name: "accKaleidoPerShare",
         type: "uint256",
       },
     ],
@@ -522,7 +522,7 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "pendingJuicy",
+    name: "pendingKaleido",
     outputs: [
       {
         internalType: "uint256",

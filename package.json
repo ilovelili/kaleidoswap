@@ -1,5 +1,5 @@
 {
-  "name": "juicyswap",
+  "name": "kaleidoswap",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
@@ -8,18 +8,17 @@
     "prepare": "tsc",
     "postinstall": "patch-package && node patch.js",
     "generate-types": "typechain --target=ethers-v5 'build/contracts/*.json'",
-    "setup": "./setup.sh",
     "fork": "dotenv cross-var ganache-cli --fork %INFURA_URI% --account='%PRIVATE_KEY%,1000000000000000000000'",
-    "deploy:local": "truffle migrate --reset --network development",
-    "deploy:fork": "truffle migrate --reset --network mainnetFork",
-    "deploy:testnet": "truffle migrate --reset --network testnet",
-    "deploy:mainnet": "truffle migrate --reset --network mainnet",
+    "deploy:local": "deploy.sh development",
+    "deploy:fork": "deploy.sh mainnetFork",
+    "deploy:testnet": "deploy.sh testnet",
+    "deploy:mainnet": "deploy.sh mainnet",
     "deploy:testnet:dry-run": "truffle migrate --reset --network testnet --dry-run",
     "deploy:mainnet:dry-run": "truffle migrate --reset --network mainnet --dry-run",
     "test": "jest --detectOpenHandles",
-    "docker:build": "docker build -t ilovelili/juicyswap .",
-    "docker:build:no-cache": "docker build --no-cache -t ilovelili/juicyswap .",
-    "docker:run": "docker run -d ilovelili/juicyswap"
+    "docker:build": "docker build -t ilovelili/kaleidoswap .",
+    "docker:build:no-cache": "docker build --no-cache -t ilovelili/kaleidoswap .",
+    "docker:run": "docker run -d ilovelili/kaleidoswap"
   },
   "private": true,
   "dependencies": {

@@ -4,9 +4,9 @@ pragma solidity 0.6.12;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-// JuicyToken with Governance.
-contract JuicyToken is ERC20("JuicyToken", "JUICY"), Ownable {
-    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (OrangeFarmer).
+// KaleidoToken with Governance.
+contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
+    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
         _moveDelegates(address(0), _delegates[_to], _amount);
@@ -113,13 +113,13 @@ contract JuicyToken is ERC20("JuicyToken", "JUICY"), Ownable {
         address signatory = ecrecover(digest, v, r, s);
         require(
             signatory != address(0),
-            "JUICY::delegateBySig: invalid signature"
+            "KALEIDO::delegateBySig: invalid signature"
         );
         require(
             nonce == nonces[signatory]++,
-            "JUICY::delegateBySig: invalid nonce"
+            "KALEIDO::delegateBySig: invalid nonce"
         );
-        require(now <= expiry, "JUICY::delegateBySig: signature expired");
+        require(now <= expiry, "KALEIDO::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -148,7 +148,7 @@ contract JuicyToken is ERC20("JuicyToken", "JUICY"), Ownable {
     {
         require(
             blockNumber < block.number,
-            "JUICY::getPriorVotes: not yet determined"
+            "KALEIDO::getPriorVotes: not yet determined"
         );
 
         uint32 nCheckpoints = numCheckpoints[account];
@@ -184,7 +184,7 @@ contract JuicyToken is ERC20("JuicyToken", "JUICY"), Ownable {
 
     function _delegate(address delegator, address delegatee) internal {
         address currentDelegate = _delegates[delegator];
-        uint256 delegatorBalance = balanceOf(delegator); // balance of underlying JUICYs (not scaled);
+        uint256 delegatorBalance = balanceOf(delegator); // balance of underlying KALEIDOs (not scaled);
         _delegates[delegator] = delegatee;
 
         emit DelegateChanged(delegator, currentDelegate, delegatee);
@@ -227,7 +227,7 @@ contract JuicyToken is ERC20("JuicyToken", "JUICY"), Ownable {
     ) internal {
         uint32 blockNumber = safe32(
             block.number,
-            "JUICY::_writeCheckpoint: block number exceeds 32 bits"
+            "KALEIDO::_writeCheckpoint: block number exceeds 32 bits"
         );
 
         if (

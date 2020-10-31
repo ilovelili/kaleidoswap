@@ -14,23 +14,23 @@
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
 
-import "./JuicyToken.sol";
+import "./KaleidoToken.sol";
 
 contract GovernorAlpha {
     /// @notice The name of this contract
     // XXX: string public constant name = "Compound Governor Alpha";
-    string public constant name = "Juicy Governor Alpha";
+    string public constant name = "Kaleido Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
     // XXX: function quorumVotes() public pure returns (uint) { return 400000e18; } // 400,000 = 4% of Comp
     function quorumVotes() public view returns (uint256) {
-        return juicy.totalSupply() / 25;
+        return kaleido.totalSupply() / 25;
     } // 4% of Supply
 
     /// @notice The number of votes required in order for a voter to become a proposer
     // function proposalThreshold() public pure returns (uint) { return 100000e18; } // 100,000 = 1% of Comp
     function proposalThreshold() public view returns (uint256) {
-        return juicy.totalSupply() / 100;
+        return kaleido.totalSupply() / 100;
     } // 1% of Supply
 
     /// @notice The maximum number of actions that can be included in a proposal
@@ -48,12 +48,12 @@ contract GovernorAlpha {
         return 17280;
     } // ~3 days in blocks (assuming 15s blocks)
 
-    /// @notice The address of the Juicy Protocol Timelock
+    /// @notice The address of the Kaleido Protocol Timelock
     TimelockInterface public timelock;
 
-    /// @notice The address of the Juicy governance token
+    /// @notice The address of the Kaleido governance token
     // XXX: CompInterface public comp;
-    JuicyToken public juicy;
+    KaleidoToken public kaleido;
 
     /// @notice The address of the Governor Guardian
     address public guardian;
@@ -162,11 +162,11 @@ contract GovernorAlpha {
 
     constructor(
         address timelock_,
-        address juicy_,
+        address kaleido_,
         address guardian_
     ) public {
         timelock = TimelockInterface(timelock_);
-        juicy = JuicyToken(juicy_);
+        kaleido = KaleidoToken(kaleido_);
         guardian = guardian_;
     }
 
@@ -178,7 +178,7 @@ contract GovernorAlpha {
         string memory description
     ) public returns (uint256) {
         require(
-            juicy.getPriorVotes(msg.sender, sub256(block.number, 1)) >
+            kaleido.getPriorVotes(msg.sender, sub256(block.number, 1)) >
                 proposalThreshold(),
             "GovernorAlpha::propose: proposer votes below proposal threshold"
         );
@@ -314,7 +314,7 @@ contract GovernorAlpha {
         Proposal storage proposal = proposals[proposalId];
         require(
             msg.sender == guardian ||
-                juicy.getPriorVotes(
+                kaleido.getPriorVotes(
                     proposal.proposer,
                     sub256(block.number, 1)
                 ) <
@@ -436,7 +436,7 @@ contract GovernorAlpha {
             receipt.hasVoted == false,
             "GovernorAlpha::_castVote: voter already voted"
         );
-        uint256 votes = juicy.getPriorVotes(voter, proposal.startBlock);
+        uint256 votes = kaleido.getPriorVotes(voter, proposal.startBlock);
 
         if (support) {
             proposal.forVotes = add256(proposal.forVotes, votes);

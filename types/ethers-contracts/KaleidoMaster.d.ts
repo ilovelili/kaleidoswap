@@ -20,7 +20,7 @@ import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 
-interface OrangeFarmerInterface extends ethers.utils.Interface {
+interface KaleidoMasterInterface extends ethers.utils.Interface {
   functions: {
     "BONUS_MULTIPLIER()": FunctionFragment;
     "bonusEndBlock()": FunctionFragment;
@@ -210,7 +210,7 @@ interface OrangeFarmerInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
-export class OrangeFarmer extends Contract {
+export class KaleidoMaster extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -221,7 +221,7 @@ export class OrangeFarmer extends Contract {
   removeAllListeners(eventName: EventFilter | string): this;
   removeListener(eventName: any, listener: Listener): this;
 
-  interface: OrangeFarmerInterface;
+  interface: KaleidoMasterInterface;
 
   functions: {
     BONUS_MULTIPLIER(

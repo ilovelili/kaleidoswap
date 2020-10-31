@@ -26,7 +26,7 @@ interface GovernorAlphaInterface extends ethers.utils.Interface {
     "BALLOT_TYPEHASH()": FunctionFragment;
     "DOMAIN_TYPEHASH()": FunctionFragment;
     "guardian()": FunctionFragment;
-    "juicy()": FunctionFragment;
+    "kaleido()": FunctionFragment;
     "latestProposalIds(address)": FunctionFragment;
     "name()": FunctionFragment;
     "proposalCount()": FunctionFragment;
@@ -61,7 +61,7 @@ interface GovernorAlphaInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "guardian", values?: undefined): string;
-  encodeFunctionData(functionFragment: "juicy", values?: undefined): string;
+  encodeFunctionData(functionFragment: "kaleido", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "latestProposalIds",
     values: [string]
@@ -152,7 +152,7 @@ interface GovernorAlphaInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "guardian", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "juicy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "kaleido", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "latestProposalIds",
     data: BytesLike
@@ -294,18 +294,18 @@ export class GovernorAlpha extends Contract {
     }>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    juicy(
+    kaleido(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
     }>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    "juicy()"(
+    "kaleido()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -422,7 +422,7 @@ export class GovernorAlpha extends Contract {
     }>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     timelock(
       overrides?: CallOverrides
@@ -431,7 +431,7 @@ export class GovernorAlpha extends Contract {
     }>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     "timelock()"(
       overrides?: CallOverrides
@@ -743,14 +743,14 @@ export class GovernorAlpha extends Contract {
   "guardian()"(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * The address of the Juicy governance token
+   * The address of the Kaleido governance token
    */
-  juicy(overrides?: CallOverrides): Promise<string>;
+  kaleido(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * The address of the Juicy governance token
+   * The address of the Kaleido governance token
    */
-  "juicy()"(overrides?: CallOverrides): Promise<string>;
+  "kaleido()"(overrides?: CallOverrides): Promise<string>;
 
   /**
    * The latest proposal for each proposer
@@ -843,12 +843,12 @@ export class GovernorAlpha extends Contract {
   }>;
 
   /**
-   * The address of the Juicy Protocol Timelock
+   * The address of the Kaleido Protocol Timelock
    */
   timelock(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * The address of the Juicy Protocol Timelock
+   * The address of the Kaleido Protocol Timelock
    */
   "timelock()"(overrides?: CallOverrides): Promise<string>;
 
@@ -1105,14 +1105,14 @@ export class GovernorAlpha extends Contract {
     "guardian()"(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    juicy(overrides?: CallOverrides): Promise<string>;
+    kaleido(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    "juicy()"(overrides?: CallOverrides): Promise<string>;
+    "kaleido()"(overrides?: CallOverrides): Promise<string>;
 
     /**
      * The latest proposal for each proposer
@@ -1205,12 +1205,12 @@ export class GovernorAlpha extends Contract {
     }>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     timelock(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     "timelock()"(overrides?: CallOverrides): Promise<string>;
 
@@ -1486,14 +1486,14 @@ export class GovernorAlpha extends Contract {
     "guardian()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    juicy(overrides?: CallOverrides): Promise<BigNumber>;
+    kaleido(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    "juicy()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "kaleido()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * The latest proposal for each proposer
@@ -1548,12 +1548,12 @@ export class GovernorAlpha extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     timelock(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     "timelock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1780,14 +1780,14 @@ export class GovernorAlpha extends Contract {
     "guardian()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    juicy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    kaleido(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
-     * The address of the Juicy governance token
+     * The address of the Kaleido governance token
      */
-    "juicy()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "kaleido()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
      * The latest proposal for each proposer
@@ -1842,12 +1842,12 @@ export class GovernorAlpha extends Contract {
     ): Promise<PopulatedTransaction>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     timelock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     /**
-     * The address of the Juicy Protocol Timelock
+     * The address of the Kaleido Protocol Timelock
      */
     "timelock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
