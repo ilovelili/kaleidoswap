@@ -52,35 +52,29 @@ interface OrangeFarmerInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "BONUS_MULTIPLIER",
-    values?: undefined
+    values?: void
   ): string;
-  encodeFunctionData(
-    functionFragment: "bonusEndBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "devaddr", values?: undefined): string;
-  encodeFunctionData(functionFragment: "kaleido", values?: undefined): string;
+  encodeFunctionData(functionFragment: "bonusEndBlock", values?: void): string;
+  encodeFunctionData(functionFragment: "devaddr", values?: void): string;
+  encodeFunctionData(functionFragment: "kaleido", values?: void): string;
   encodeFunctionData(
     functionFragment: "kaleidoPerBlock",
-    values?: undefined
+    values?: void
   ): string;
-  encodeFunctionData(functionFragment: "migrator", values?: undefined): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "migrator", values?: void): string;
+  encodeFunctionData(functionFragment: "owner", values?: void): string;
   encodeFunctionData(
     functionFragment: "poolInfo",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined
+    values?: void
   ): string;
-  encodeFunctionData(
-    functionFragment: "startBlock",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "startBlock", values?: void): string;
   encodeFunctionData(
     functionFragment: "totalAllocPoint",
-    values?: undefined
+    values?: void
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
@@ -90,10 +84,7 @@ interface OrangeFarmerInterface extends ethers.utils.Interface {
     functionFragment: "userInfo",
     values: [BigNumberish, string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "poolLength",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "poolLength", values?: void): string;
   encodeFunctionData(
     functionFragment: "add",
     values: [BigNumberish, string, boolean]
@@ -117,7 +108,7 @@ interface OrangeFarmerInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "massUpdatePools",
-    values?: undefined
+    values?: void
   ): string;
   encodeFunctionData(
     functionFragment: "updatePool",
@@ -230,19 +221,7 @@ export class OrangeFarmer extends Contract {
       0: BigNumber;
     }>;
 
-    "BONUS_MULTIPLIER()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     bonusEndBlock(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    "bonusEndBlock()"(
       overrides?: CallOverrides
     ): Promise<{
       0: BigNumber;
@@ -254,19 +233,7 @@ export class OrangeFarmer extends Contract {
       0: string;
     }>;
 
-    "devaddr()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
     kaleido(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    "kaleido()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -278,19 +245,7 @@ export class OrangeFarmer extends Contract {
       0: BigNumber;
     }>;
 
-    "kaleidoPerBlock()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     migrator(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    "migrator()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -305,30 +260,7 @@ export class OrangeFarmer extends Contract {
       0: string;
     }>;
 
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
     poolInfo(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      lpToken: string;
-      allocPoint: BigNumber;
-      lastRewardBlock: BigNumber;
-      accKaleidoPerShare: BigNumber;
-      0: string;
-      1: BigNumber;
-      2: BigNumber;
-      3: BigNumber;
-    }>;
-
-    "poolInfo(uint256)"(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<{
@@ -347,30 +279,13 @@ export class OrangeFarmer extends Contract {
      */
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
-
     startBlock(
       overrides?: CallOverrides
     ): Promise<{
       0: BigNumber;
     }>;
 
-    "startBlock()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     totalAllocPoint(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    "totalAllocPoint()"(
       overrides?: CallOverrides
     ): Promise<{
       0: BigNumber;
@@ -384,26 +299,7 @@ export class OrangeFarmer extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     userInfo(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      amount: BigNumber;
-      rewardDebt: BigNumber;
-      0: BigNumber;
-      1: BigNumber;
-    }>;
-
-    "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
       overrides?: CallOverrides
@@ -420,20 +316,7 @@ export class OrangeFarmer extends Contract {
       0: BigNumber;
     }>;
 
-    "poolLength()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     add(
-      _allocPoint: BigNumberish,
-      _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    "add(uint256,address,bool)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
@@ -447,19 +330,7 @@ export class OrangeFarmer extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "set(uint256,uint256,bool)"(
-      _pid: BigNumberish,
-      _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     setMigrator(
-      _migrator: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    "setMigrator(address)"(
       _migrator: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
@@ -469,20 +340,7 @@ export class OrangeFarmer extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "migrate(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
       overrides?: CallOverrides
@@ -498,35 +356,14 @@ export class OrangeFarmer extends Contract {
       0: BigNumber;
     }>;
 
-    "pendingKaleido(uint256,address)"(
-      _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     massUpdatePools(overrides?: Overrides): Promise<ContractTransaction>;
-
-    "massUpdatePools()"(overrides?: Overrides): Promise<ContractTransaction>;
 
     updatePool(
       _pid: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "updatePool(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     deposit(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
       overrides?: Overrides
@@ -538,79 +375,32 @@ export class OrangeFarmer extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "withdraw(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     emergencyWithdraw(
       _pid: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "emergencyWithdraw(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     dev(_devaddr: string, overrides?: Overrides): Promise<ContractTransaction>;
-
-    "dev(address)"(
-      _devaddr: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
   };
 
   BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   devaddr(overrides?: CallOverrides): Promise<string>;
 
-  "devaddr()"(overrides?: CallOverrides): Promise<string>;
-
   kaleido(overrides?: CallOverrides): Promise<string>;
-
-  "kaleido()"(overrides?: CallOverrides): Promise<string>;
 
   kaleidoPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "kaleidoPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   migrator(overrides?: CallOverrides): Promise<string>;
-
-  "migrator()"(overrides?: CallOverrides): Promise<string>;
 
   /**
    * Returns the address of the current owner.
    */
   owner(overrides?: CallOverrides): Promise<string>;
 
-  /**
-   * Returns the address of the current owner.
-   */
-  "owner()"(overrides?: CallOverrides): Promise<string>;
-
   poolInfo(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<{
-    lpToken: string;
-    allocPoint: BigNumber;
-    lastRewardBlock: BigNumber;
-    accKaleidoPerShare: BigNumber;
-    0: string;
-    1: BigNumber;
-    2: BigNumber;
-    3: BigNumber;
-  }>;
-
-  "poolInfo(uint256)"(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<{
@@ -629,31 +419,14 @@ export class OrangeFarmer extends Contract {
    */
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
-  /**
-   * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-   */
-  "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
-
   startBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "totalAllocPoint()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
    * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
    */
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-   */
-  "transferOwnership(address)"(
     newOwner: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -669,29 +442,9 @@ export class OrangeFarmer extends Contract {
     1: BigNumber;
   }>;
 
-  "userInfo(uint256,address)"(
-    arg0: BigNumberish,
-    arg1: string,
-    overrides?: CallOverrides
-  ): Promise<{
-    amount: BigNumber;
-    rewardDebt: BigNumber;
-    0: BigNumber;
-    1: BigNumber;
-  }>;
-
   poolLength(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "poolLength()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   add(
-    _allocPoint: BigNumberish,
-    _lpToken: string,
-    _withUpdate: boolean,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "add(uint256,address,bool)"(
     _allocPoint: BigNumberish,
     _lpToken: string,
     _withUpdate: boolean,
@@ -705,19 +458,7 @@ export class OrangeFarmer extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "set(uint256,uint256,bool)"(
-    _pid: BigNumberish,
-    _allocPoint: BigNumberish,
-    _withUpdate: boolean,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
   setMigrator(
-    _migrator: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "setMigrator(address)"(
     _migrator: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -727,18 +468,7 @@ export class OrangeFarmer extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "migrate(uint256)"(
-    _pid: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
   getMultiplier(
-    _from: BigNumberish,
-    _to: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  "getMultiplier(uint256,uint256)"(
     _from: BigNumberish,
     _to: BigNumberish,
     overrides?: CallOverrides
@@ -750,33 +480,14 @@ export class OrangeFarmer extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  "pendingKaleido(uint256,address)"(
-    _pid: BigNumberish,
-    _user: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   massUpdatePools(overrides?: Overrides): Promise<ContractTransaction>;
-
-  "massUpdatePools()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   updatePool(
     _pid: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "updatePool(uint256)"(
-    _pid: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
   deposit(
-    _pid: BigNumberish,
-    _amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "deposit(uint256,uint256)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
     overrides?: Overrides
@@ -788,63 +499,30 @@ export class OrangeFarmer extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "withdraw(uint256,uint256)"(
-    _pid: BigNumberish,
-    _amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
   emergencyWithdraw(
-    _pid: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "emergencyWithdraw(uint256)"(
     _pid: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
   dev(_devaddr: string, overrides?: Overrides): Promise<ContractTransaction>;
 
-  "dev(address)"(
-    _devaddr: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
+  staticCall: {
     BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     devaddr(overrides?: CallOverrides): Promise<string>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<string>;
 
     kaleido(overrides?: CallOverrides): Promise<string>;
 
-    "kaleido()"(overrides?: CallOverrides): Promise<string>;
-
     kaleidoPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "kaleidoPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     migrator(overrides?: CallOverrides): Promise<string>;
-
-    "migrator()"(overrides?: CallOverrides): Promise<string>;
 
     /**
      * Returns the address of the current owner.
      */
     owner(overrides?: CallOverrides): Promise<string>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<string>;
 
     poolInfo(
       arg0: BigNumberish,
@@ -860,53 +538,19 @@ export class OrangeFarmer extends Contract {
       3: BigNumber;
     }>;
 
-    "poolInfo(uint256)"(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      lpToken: string;
-      allocPoint: BigNumber;
-      lastRewardBlock: BigNumber;
-      accKaleidoPerShare: BigNumber;
-      0: string;
-      1: BigNumber;
-      2: BigNumber;
-      3: BigNumber;
-    }>;
-
     /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+    renounceOwnership(overrides?: Overrides): Promise<void>;
 
     startBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "totalAllocPoint()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: Overrides): Promise<void>;
 
     userInfo(
       arg0: BigNumberish,
@@ -919,70 +563,27 @@ export class OrangeFarmer extends Contract {
       1: BigNumber;
     }>;
 
-    "userInfo(uint256,address)"(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      amount: BigNumber;
-      rewardDebt: BigNumber;
-      0: BigNumber;
-      1: BigNumber;
-    }>;
-
     poolLength(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "poolLength()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     add(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "add(uint256,address,bool)"(
-      _allocPoint: BigNumberish,
-      _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
-    "set(uint256,uint256,bool)"(
-      _pid: BigNumberish,
-      _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMigrator(_migrator: string, overrides?: Overrides): Promise<void>;
 
-    setMigrator(_migrator: string, overrides?: CallOverrides): Promise<void>;
-
-    "setMigrator(address)"(
-      _migrator: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    migrate(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    "migrate(uint256)"(
-      _pid: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    migrate(_pid: BigNumberish, overrides?: Overrides): Promise<void>;
 
     getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
       overrides?: CallOverrides
@@ -994,60 +595,25 @@ export class OrangeFarmer extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "pendingKaleido(uint256,address)"(
-      _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    massUpdatePools(overrides?: Overrides): Promise<void>;
 
-    massUpdatePools(overrides?: CallOverrides): Promise<void>;
-
-    "massUpdatePools()"(overrides?: CallOverrides): Promise<void>;
-
-    updatePool(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    "updatePool(uint256)"(
-      _pid: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updatePool(_pid: BigNumberish, overrides?: Overrides): Promise<void>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "deposit(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
-    "withdraw(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    emergencyWithdraw(_pid: BigNumberish, overrides?: Overrides): Promise<void>;
 
-    emergencyWithdraw(
-      _pid: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "emergencyWithdraw(uint256)"(
-      _pid: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    dev(_devaddr: string, overrides?: CallOverrides): Promise<void>;
-
-    "dev(address)"(_devaddr: string, overrides?: CallOverrides): Promise<void>;
+    dev(_devaddr: string, overrides?: Overrides): Promise<void>;
   };
 
   filters: {
@@ -1076,439 +642,88 @@ export class OrangeFarmer extends Contract {
   };
 
   estimateGas: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    devaddr(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    kaleido(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "kaleido()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    kaleidoPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "kaleidoPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    migrator(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "migrator()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    poolInfo(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    "poolInfo(uint256)"(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
-
-    startBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "totalAllocPoint()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    userInfo(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "userInfo(uint256,address)"(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    poolLength(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "poolLength()"(overrides?: CallOverrides): Promise<BigNumber>;
-
+    BONUS_MULTIPLIER(): Promise<BigNumber>;
+    bonusEndBlock(): Promise<BigNumber>;
+    devaddr(): Promise<BigNumber>;
+    kaleido(): Promise<BigNumber>;
+    kaleidoPerBlock(): Promise<BigNumber>;
+    migrator(): Promise<BigNumber>;
+    owner(): Promise<BigNumber>;
+    poolInfo(arg0: BigNumberish): Promise<BigNumber>;
+    renounceOwnership(): Promise<BigNumber>;
+    startBlock(): Promise<BigNumber>;
+    totalAllocPoint(): Promise<BigNumber>;
+    transferOwnership(newOwner: string): Promise<BigNumber>;
+    userInfo(arg0: BigNumberish, arg1: string): Promise<BigNumber>;
+    poolLength(): Promise<BigNumber>;
     add(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: Overrides
+      _withUpdate: boolean
     ): Promise<BigNumber>;
-
-    "add(uint256,address,bool)"(
-      _allocPoint: BigNumberish,
-      _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: Overrides
+      _withUpdate: boolean
     ): Promise<BigNumber>;
-
-    "set(uint256,uint256,bool)"(
-      _pid: BigNumberish,
-      _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    setMigrator(_migrator: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "setMigrator(address)"(
-      _migrator: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    migrate(_pid: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
-
-    "migrate(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    pendingKaleido(
-      _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "pendingKaleido(uint256,address)"(
-      _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    massUpdatePools(overrides?: Overrides): Promise<BigNumber>;
-
-    "massUpdatePools()"(overrides?: Overrides): Promise<BigNumber>;
-
-    updatePool(_pid: BigNumberish, overrides?: Overrides): Promise<BigNumber>;
-
-    "updatePool(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    deposit(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    "deposit(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    withdraw(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    "withdraw(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    emergencyWithdraw(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    "emergencyWithdraw(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    dev(_devaddr: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "dev(address)"(_devaddr: string, overrides?: Overrides): Promise<BigNumber>;
+    setMigrator(_migrator: string): Promise<BigNumber>;
+    migrate(_pid: BigNumberish): Promise<BigNumber>;
+    getMultiplier(_from: BigNumberish, _to: BigNumberish): Promise<BigNumber>;
+    pendingKaleido(_pid: BigNumberish, _user: string): Promise<BigNumber>;
+    massUpdatePools(): Promise<BigNumber>;
+    updatePool(_pid: BigNumberish): Promise<BigNumber>;
+    deposit(_pid: BigNumberish, _amount: BigNumberish): Promise<BigNumber>;
+    withdraw(_pid: BigNumberish, _amount: BigNumberish): Promise<BigNumber>;
+    emergencyWithdraw(_pid: BigNumberish): Promise<BigNumber>;
+    dev(_devaddr: string): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "BONUS_MULTIPLIER()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    devaddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    kaleido(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "kaleido()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    kaleidoPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "kaleidoPerBlock()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    migrator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "migrator()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    poolInfo(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "poolInfo(uint256)"(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    startBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    totalAllocPoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "totalAllocPoint()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    userInfo(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "userInfo(uint256,address)"(
-      arg0: BigNumberish,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    poolLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "poolLength()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
+    BONUS_MULTIPLIER(): Promise<PopulatedTransaction>;
+    bonusEndBlock(): Promise<PopulatedTransaction>;
+    devaddr(): Promise<PopulatedTransaction>;
+    kaleido(): Promise<PopulatedTransaction>;
+    kaleidoPerBlock(): Promise<PopulatedTransaction>;
+    migrator(): Promise<PopulatedTransaction>;
+    owner(): Promise<PopulatedTransaction>;
+    poolInfo(arg0: BigNumberish): Promise<PopulatedTransaction>;
+    renounceOwnership(): Promise<PopulatedTransaction>;
+    startBlock(): Promise<PopulatedTransaction>;
+    totalAllocPoint(): Promise<PopulatedTransaction>;
+    transferOwnership(newOwner: string): Promise<PopulatedTransaction>;
+    userInfo(arg0: BigNumberish, arg1: string): Promise<PopulatedTransaction>;
+    poolLength(): Promise<PopulatedTransaction>;
     add(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: Overrides
+      _withUpdate: boolean
     ): Promise<PopulatedTransaction>;
-
-    "add(uint256,address,bool)"(
-      _allocPoint: BigNumberish,
-      _lpToken: string,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: Overrides
+      _withUpdate: boolean
     ): Promise<PopulatedTransaction>;
-
-    "set(uint256,uint256,bool)"(
-      _pid: BigNumberish,
-      _allocPoint: BigNumberish,
-      _withUpdate: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    setMigrator(
-      _migrator: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "setMigrator(address)"(
-      _migrator: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    migrate(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "migrate(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
+    setMigrator(_migrator: string): Promise<PopulatedTransaction>;
+    migrate(_pid: BigNumberish): Promise<PopulatedTransaction>;
     getMultiplier(
       _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
+      _to: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     pendingKaleido(
       _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
+      _user: string
     ): Promise<PopulatedTransaction>;
-
-    "pendingKaleido(uint256,address)"(
-      _pid: BigNumberish,
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    massUpdatePools(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    "massUpdatePools()"(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    updatePool(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "updatePool(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
+    massUpdatePools(): Promise<PopulatedTransaction>;
+    updatePool(_pid: BigNumberish): Promise<PopulatedTransaction>;
     deposit(
       _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
+      _amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    "deposit(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
     withdraw(
       _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
+      _amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    "withdraw(uint256,uint256)"(
-      _pid: BigNumberish,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    emergencyWithdraw(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "emergencyWithdraw(uint256)"(
-      _pid: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    dev(_devaddr: string, overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    "dev(address)"(
-      _devaddr: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    emergencyWithdraw(_pid: BigNumberish): Promise<PopulatedTransaction>;
+    dev(_devaddr: string): Promise<PopulatedTransaction>;
   };
 }

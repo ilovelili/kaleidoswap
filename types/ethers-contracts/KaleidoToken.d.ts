@@ -51,11 +51,11 @@ interface KaleidoTokenInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "DELEGATION_TYPEHASH",
-    values?: undefined
+    values?: void
   ): string;
   encodeFunctionData(
     functionFragment: "DOMAIN_TYPEHASH",
-    values?: undefined
+    values?: void
   ): string;
   encodeFunctionData(
     functionFragment: "allowance",
@@ -70,7 +70,7 @@ interface KaleidoTokenInterface extends ethers.utils.Interface {
     functionFragment: "checkpoints",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(functionFragment: "decimals", values?: void): string;
   encodeFunctionData(
     functionFragment: "decreaseAllowance",
     values: [string, BigNumberish]
@@ -79,22 +79,19 @@ interface KaleidoTokenInterface extends ethers.utils.Interface {
     functionFragment: "increaseAllowance",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "name", values?: void): string;
   encodeFunctionData(functionFragment: "nonces", values: [string]): string;
   encodeFunctionData(
     functionFragment: "numCheckpoints",
     values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: void): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined
+    values?: void
   ): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "symbol", values?: void): string;
+  encodeFunctionData(functionFragment: "totalSupply", values?: void): string;
   encodeFunctionData(
     functionFragment: "transfer",
     values: [string, BigNumberish]
@@ -237,27 +234,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    "DELEGATION_TYPEHASH()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
      * The EIP-712 typehash for the contract's domain
      */
     DOMAIN_TYPEHASH(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    "DOMAIN_TYPEHASH()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -275,17 +254,6 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
      */
     approve(
@@ -295,28 +263,9 @@ export class KaleidoToken extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * See {IERC20-balanceOf}.
      */
     balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<{
@@ -338,32 +287,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * A record of votes checkpoints for each account, by index
-     */
-    "checkpoints(address,uint32)"(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      fromBlock: number;
-      votes: BigNumber;
-      0: number;
-      1: BigNumber;
-    }>;
-
-    /**
      * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
      */
     decimals(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number;
-    }>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(
       overrides?: CallOverrides
     ): Promise<{
       0: number;
@@ -379,27 +305,9 @@ export class KaleidoToken extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
      */
     increaseAllowance(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
       overrides?: Overrides
@@ -415,28 +323,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * Returns the name of the token.
-     */
-    "name()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
      * A record of states for signing / validating signatures
      */
     nonces(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    "nonces(address)"(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<{
@@ -454,28 +343,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * The number of checkpoints for each account
-     */
-    "numCheckpoints(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number;
-    }>;
-
-    /**
      * Returns the address of the current owner.
      */
     owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -487,23 +357,9 @@ export class KaleidoToken extends Contract {
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
     /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
-
-    /**
      * Returns the symbol of the token, usually a shorter version of the name.
      */
     symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -519,27 +375,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
      */
     transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
       overrides?: Overrides
@@ -556,16 +394,6 @@ export class KaleidoToken extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
@@ -574,26 +402,9 @@ export class KaleidoToken extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
      */
     mint(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    "mint(address,uint256)"(
       _to: string,
       _amount: BigNumberish,
       overrides?: Overrides
@@ -612,29 +423,9 @@ export class KaleidoToken extends Contract {
 
     /**
      * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    "delegates(address)"(
-      delegator: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
      * @param delegatee The address to delegate votes to
      */
     delegate(
-      delegatee: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    "delegate(address)"(
       delegatee: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
@@ -659,40 +450,10 @@ export class KaleidoToken extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
-    "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)"(
-      delegatee: string,
-      nonce: BigNumberish,
-      expiry: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Gets the current votes balance for `account`
      * @param account The address to get votes balance
      */
     getCurrentVotes(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    "getCurrentVotes(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<{
@@ -712,20 +473,6 @@ export class KaleidoToken extends Contract {
     ): Promise<{
       0: BigNumber;
     }>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
-    "getPriorVotes(address,uint256)"(
-      account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
   };
 
   /**
@@ -734,33 +481,14 @@ export class KaleidoToken extends Contract {
   DELEGATION_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * The EIP-712 typehash for the delegation struct used by the contract
-   */
-  "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * The EIP-712 typehash for the contract's domain
    */
   DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * The EIP-712 typehash for the contract's domain
-   */
-  "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * See {IERC20-allowance}.
    */
   allowance(
-    owner: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * See {IERC20-allowance}.
-   */
-  "allowance(address,address)"(
     owner: string,
     spender: string,
     overrides?: CallOverrides
@@ -776,26 +504,9 @@ export class KaleidoToken extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-   */
-  "approve(address,uint256)"(
-    spender: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * See {IERC20-balanceOf}.
    */
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  /**
-   * See {IERC20-balanceOf}.
-   */
-  "balanceOf(address)"(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   /**
    * A record of votes checkpoints for each account, by index
@@ -812,42 +523,14 @@ export class KaleidoToken extends Contract {
   }>;
 
   /**
-   * A record of votes checkpoints for each account, by index
-   */
-  "checkpoints(address,uint32)"(
-    arg0: string,
-    arg1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<{
-    fromBlock: number;
-    votes: BigNumber;
-    0: number;
-    1: BigNumber;
-  }>;
-
-  /**
    * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
    */
   decimals(overrides?: CallOverrides): Promise<number>;
 
   /**
-   * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-   */
-  "decimals()"(overrides?: CallOverrides): Promise<number>;
-
-  /**
    * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
    */
   decreaseAllowance(
-    spender: string,
-    subtractedValue: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-   */
-  "decreaseAllowance(address,uint256)"(
     spender: string,
     subtractedValue: BigNumberish,
     overrides?: Overrides
@@ -863,23 +546,9 @@ export class KaleidoToken extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-   */
-  "increaseAllowance(address,uint256)"(
-    spender: string,
-    addedValue: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Returns the name of the token.
    */
   name(overrides?: CallOverrides): Promise<string>;
-
-  /**
-   * Returns the name of the token.
-   */
-  "name()"(overrides?: CallOverrides): Promise<string>;
 
   /**
    * A record of states for signing / validating signatures
@@ -887,25 +556,9 @@ export class KaleidoToken extends Contract {
   nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
-   * A record of states for signing / validating signatures
-   */
-  "nonces(address)"(
-    arg0: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
    * The number of checkpoints for each account
    */
   numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<number>;
-
-  /**
-   * The number of checkpoints for each account
-   */
-  "numCheckpoints(address)"(
-    arg0: string,
-    overrides?: CallOverrides
-  ): Promise<number>;
 
   /**
    * Returns the address of the current owner.
@@ -913,19 +566,9 @@ export class KaleidoToken extends Contract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * Returns the address of the current owner.
-   */
-  "owner()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
    */
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
-
-  /**
-   * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-   */
-  "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   /**
    * Returns the symbol of the token, usually a shorter version of the name.
@@ -933,33 +576,14 @@ export class KaleidoToken extends Contract {
   symbol(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * Returns the symbol of the token, usually a shorter version of the name.
-   */
-  "symbol()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * See {IERC20-totalSupply}.
    */
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
-   * See {IERC20-totalSupply}.
-   */
-  "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  /**
    * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
    */
   transfer(
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-   */
-  "transfer(address,uint256)"(
     recipient: string,
     amount: BigNumberish,
     overrides?: Overrides
@@ -976,27 +600,9 @@ export class KaleidoToken extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-   */
-  "transferFrom(address,address,uint256)"(
-    sender: string,
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
    */
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-   */
-  "transferOwnership(address)"(
     newOwner: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -1011,15 +617,6 @@ export class KaleidoToken extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-   */
-  "mint(address,uint256)"(
-    _to: string,
-    _amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Delegate votes from `msg.sender` to `delegatee`
    * @param delegator The address to get delegatee for
    */
@@ -1027,27 +624,9 @@ export class KaleidoToken extends Contract {
 
   /**
    * Delegate votes from `msg.sender` to `delegatee`
-   * @param delegator The address to get delegatee for
-   */
-  "delegates(address)"(
-    delegator: string,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  /**
-   * Delegate votes from `msg.sender` to `delegatee`
    * @param delegatee The address to delegate votes to
    */
   delegate(
-    delegatee: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Delegate votes from `msg.sender` to `delegatee`
-   * @param delegatee The address to delegate votes to
-   */
-  "delegate(address)"(
     delegatee: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -1072,38 +651,10 @@ export class KaleidoToken extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * Delegates votes from signatory to `delegatee`
-   * @param delegatee The address to delegate votes to
-   * @param expiry The time at which to expire the signature
-   * @param nonce The contract state required to match the signature
-   * @param r Half of the ECDSA signature pair
-   * @param s Half of the ECDSA signature pair
-   * @param v The recovery byte of the signature
-   */
-  "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)"(
-    delegatee: string,
-    nonce: BigNumberish,
-    expiry: BigNumberish,
-    v: BigNumberish,
-    r: BytesLike,
-    s: BytesLike,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Gets the current votes balance for `account`
    * @param account The address to get votes balance
    */
   getCurrentVotes(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
-   * Gets the current votes balance for `account`
-   * @param account The address to get votes balance
-   */
-  "getCurrentVotes(address)"(
     account: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
@@ -1120,38 +671,16 @@ export class KaleidoToken extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  /**
-   * Block number must be a finalized block or else this function will revert to prevent misinformation.
-   * Determine the prior number of votes for an account as of a block number
-   * @param account The address of the account to check
-   * @param blockNumber The block number to get the vote balance at
-   */
-  "getPriorVotes(address,uint256)"(
-    account: string,
-    blockNumber: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  callStatic: {
+  staticCall: {
     /**
      * The EIP-712 typehash for the delegation struct used by the contract
      */
     DELEGATION_TYPEHASH(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * The EIP-712 typehash for the contract's domain
      */
     DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<string>;
 
     /**
      * See {IERC20-allowance}.
@@ -1163,44 +692,18 @@ export class KaleidoToken extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
      */
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
      * See {IERC20-balanceOf}.
      */
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     /**
      * A record of votes checkpoints for each account, by index
@@ -1217,28 +720,9 @@ export class KaleidoToken extends Contract {
     }>;
 
     /**
-     * A record of votes checkpoints for each account, by index
-     */
-    "checkpoints(address,uint32)"(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      fromBlock: number;
-      votes: BigNumber;
-      0: number;
-      1: BigNumber;
-    }>;
-
-    /**
      * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
      */
     decimals(overrides?: CallOverrides): Promise<number>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<number>;
 
     /**
      * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
@@ -1246,16 +730,7 @@ export class KaleidoToken extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -1264,16 +739,7 @@ export class KaleidoToken extends Contract {
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -1282,22 +748,9 @@ export class KaleidoToken extends Contract {
     name(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * A record of states for signing / validating signatures
      */
     nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    "nonces(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     /**
      * The number of checkpoints for each account
@@ -1305,32 +758,14 @@ export class KaleidoToken extends Contract {
     numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<number>;
 
     /**
-     * The number of checkpoints for each account
-     */
-    "numCheckpoints(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<number>;
-
-    /**
      * Returns the address of the current owner.
      */
     owner(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+    renounceOwnership(overrides?: Overrides): Promise<void>;
 
     /**
      * Returns the symbol of the token, usually a shorter version of the name.
@@ -1338,19 +773,9 @@ export class KaleidoToken extends Contract {
     symbol(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * See {IERC20-totalSupply}.
      */
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
@@ -1358,16 +783,7 @@ export class KaleidoToken extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -1377,34 +793,13 @@ export class KaleidoToken extends Contract {
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: Overrides): Promise<void>;
 
     /**
      * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
@@ -1412,16 +807,7 @@ export class KaleidoToken extends Contract {
     mint(
       _to: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    "mint(address,uint256)"(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
     /**
@@ -1432,27 +818,9 @@ export class KaleidoToken extends Contract {
 
     /**
      * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    "delegates(address)"(
-      delegator: string,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
      * @param delegatee The address to delegate votes to
      */
-    delegate(delegatee: string, overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    "delegate(address)"(
-      delegatee: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    delegate(delegatee: string, overrides?: Overrides): Promise<void>;
 
     /**
      * Delegates votes from signatory to `delegatee`
@@ -1470,26 +838,7 @@ export class KaleidoToken extends Contract {
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
-    "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)"(
-      delegatee: string,
-      nonce: BigNumberish,
-      expiry: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<void>;
 
     /**
@@ -1502,33 +851,12 @@ export class KaleidoToken extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    "getCurrentVotes(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Block number must be a finalized block or else this function will revert to prevent misinformation.
      * Determine the prior number of votes for an account as of a block number
      * @param account The address of the account to check
      * @param blockNumber The block number to get the vote balance at
      */
     getPriorVotes(
-      account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
-    "getPriorVotes(address,uint256)"(
       account: string,
       blockNumber: BigNumberish,
       overrides?: CallOverrides
@@ -1563,809 +891,107 @@ export class KaleidoToken extends Contract {
   };
 
   estimateGas: {
-    /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    DELEGATION_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    "DELEGATION_TYPEHASH()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    "DOMAIN_TYPEHASH()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * A record of votes checkpoints for each account, by index
-     */
-    checkpoints(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * A record of votes checkpoints for each account, by index
-     */
-    "checkpoints(address,uint32)"(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    decimals(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
+    DELEGATION_TYPEHASH(): Promise<BigNumber>;
+    DOMAIN_TYPEHASH(): Promise<BigNumber>;
+    allowance(owner: string, spender: string): Promise<BigNumber>;
+    approve(spender: string, amount: BigNumberish): Promise<BigNumber>;
+    balanceOf(account: string): Promise<BigNumber>;
+    checkpoints(arg0: string, arg1: BigNumberish): Promise<BigNumber>;
+    decimals(): Promise<BigNumber>;
     decreaseAllowance(
       spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
+      subtractedValue: BigNumberish
     ): Promise<BigNumber>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
     increaseAllowance(
       spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
+      addedValue: BigNumberish
     ): Promise<BigNumber>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Returns the name of the token.
-     */
-    name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    "nonces(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * The number of checkpoints for each account
-     */
-    numCheckpoints(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * The number of checkpoints for each account
-     */
-    "numCheckpoints(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    symbol(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
+    name(): Promise<BigNumber>;
+    nonces(arg0: string): Promise<BigNumber>;
+    numCheckpoints(arg0: string): Promise<BigNumber>;
+    owner(): Promise<BigNumber>;
+    renounceOwnership(): Promise<BigNumber>;
+    symbol(): Promise<BigNumber>;
+    totalSupply(): Promise<BigNumber>;
+    transfer(recipient: string, amount: BigNumberish): Promise<BigNumber>;
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    mint(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    "mint(address,uint256)"(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    delegates(delegator: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    "delegates(address)"(
-      delegator: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    delegate(delegatee: string, overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    "delegate(address)"(
-      delegatee: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
+    transferOwnership(newOwner: string): Promise<BigNumber>;
+    mint(_to: string, _amount: BigNumberish): Promise<BigNumber>;
+    delegates(delegator: string): Promise<BigNumber>;
+    delegate(delegatee: string): Promise<BigNumber>;
     delegateBySig(
       delegatee: string,
       nonce: BigNumberish,
       expiry: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides
+      s: BytesLike
     ): Promise<BigNumber>;
-
-    /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
-    "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)"(
-      delegatee: string,
-      nonce: BigNumberish,
-      expiry: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    getCurrentVotes(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    "getCurrentVotes(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
+    getCurrentVotes(account: string): Promise<BigNumber>;
     getPriorVotes(
       account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
-    "getPriorVotes(address,uint256)"(
-      account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
+      blockNumber: BigNumberish
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    DELEGATION_TYPEHASH(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * The EIP-712 typehash for the delegation struct used by the contract
-     */
-    "DELEGATION_TYPEHASH()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * The EIP-712 typehash for the contract's domain
-     */
-    "DOMAIN_TYPEHASH()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
+    DELEGATION_TYPEHASH(): Promise<PopulatedTransaction>;
+    DOMAIN_TYPEHASH(): Promise<PopulatedTransaction>;
+    allowance(owner: string, spender: string): Promise<PopulatedTransaction>;
     approve(
       spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * A record of votes checkpoints for each account, by index
-     */
+    balanceOf(account: string): Promise<PopulatedTransaction>;
     checkpoints(
       arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
+      arg1: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * A record of votes checkpoints for each account, by index
-     */
-    "checkpoints(address,uint32)"(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
+    decimals(): Promise<PopulatedTransaction>;
     decreaseAllowance(
       spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
+      subtractedValue: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
     increaseAllowance(
       spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
+      addedValue: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the name of the token.
-     */
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    nonces(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * A record of states for signing / validating signatures
-     */
-    "nonces(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * The number of checkpoints for each account
-     */
-    numCheckpoints(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * The number of checkpoints for each account
-     */
-    "numCheckpoints(address)"(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
+    name(): Promise<PopulatedTransaction>;
+    nonces(arg0: string): Promise<PopulatedTransaction>;
+    numCheckpoints(arg0: string): Promise<PopulatedTransaction>;
+    owner(): Promise<PopulatedTransaction>;
+    renounceOwnership(): Promise<PopulatedTransaction>;
+    symbol(): Promise<PopulatedTransaction>;
+    totalSupply(): Promise<PopulatedTransaction>;
     transfer(
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    mint(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
-     */
-    "mint(address,uint256)"(
-      _to: string,
-      _amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    delegates(
-      delegator: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegator The address to get delegatee for
-     */
-    "delegates(address)"(
-      delegator: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    delegate(
-      delegatee: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegate votes from `msg.sender` to `delegatee`
-     * @param delegatee The address to delegate votes to
-     */
-    "delegate(address)"(
-      delegatee: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
+    transferOwnership(newOwner: string): Promise<PopulatedTransaction>;
+    mint(_to: string, _amount: BigNumberish): Promise<PopulatedTransaction>;
+    delegates(delegator: string): Promise<PopulatedTransaction>;
+    delegate(delegatee: string): Promise<PopulatedTransaction>;
     delegateBySig(
       delegatee: string,
       nonce: BigNumberish,
       expiry: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides
+      s: BytesLike
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Delegates votes from signatory to `delegatee`
-     * @param delegatee The address to delegate votes to
-     * @param expiry The time at which to expire the signature
-     * @param nonce The contract state required to match the signature
-     * @param r Half of the ECDSA signature pair
-     * @param s Half of the ECDSA signature pair
-     * @param v The recovery byte of the signature
-     */
-    "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)"(
-      delegatee: string,
-      nonce: BigNumberish,
-      expiry: BigNumberish,
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    getCurrentVotes(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Gets the current votes balance for `account`
-     * @param account The address to get votes balance
-     */
-    "getCurrentVotes(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
+    getCurrentVotes(account: string): Promise<PopulatedTransaction>;
     getPriorVotes(
       account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Block number must be a finalized block or else this function will revert to prevent misinformation.
-     * Determine the prior number of votes for an account as of a block number
-     * @param account The address of the account to check
-     * @param blockNumber The block number to get the vote balance at
-     */
-    "getPriorVotes(address,uint256)"(
-      account: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
+      blockNumber: BigNumberish
     ): Promise<PopulatedTransaction>;
   };
 }

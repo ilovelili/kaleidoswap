@@ -27,10 +27,10 @@ interface OwnableInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: void): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined
+    values?: void
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
@@ -78,36 +78,14 @@ export class Ownable extends Contract {
     }>;
 
     /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
 
     /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
-
-    /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
       newOwner: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
@@ -119,19 +97,9 @@ export class Ownable extends Contract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * Returns the address of the current owner.
-   */
-  "owner()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
    */
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>;
-
-  /**
-   * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-   */
-  "renounceOwnership()"(overrides?: Overrides): Promise<ContractTransaction>;
 
   /**
    * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
@@ -141,50 +109,21 @@ export class Ownable extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  /**
-   * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-   */
-  "transferOwnership(address)"(
-    newOwner: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
+  staticCall: {
     /**
      * Returns the address of the current owner.
      */
     owner(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
      */
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+    renounceOwnership(overrides?: Overrides): Promise<void>;
 
     /**
      * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
      */
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: Overrides): Promise<void>;
   };
 
   filters: {
@@ -195,78 +134,14 @@ export class Ownable extends Contract {
   };
 
   estimateGas: {
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    owner(): Promise<BigNumber>;
+    renounceOwnership(): Promise<BigNumber>;
+    transferOwnership(newOwner: string): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    /**
-     * Returns the address of the current owner.
-     */
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the address of the current owner.
-     */
-    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.
-     */
-    "renounceOwnership()"(overrides?: Overrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.
-     */
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    owner(): Promise<PopulatedTransaction>;
+    renounceOwnership(): Promise<PopulatedTransaction>;
+    transferOwnership(newOwner: string): Promise<PopulatedTransaction>;
   };
 }

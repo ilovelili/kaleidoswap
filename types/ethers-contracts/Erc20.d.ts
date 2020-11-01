@@ -35,13 +35,10 @@ interface Erc20Interface extends ethers.utils.Interface {
     "decreaseAllowance(address,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "name", values?: void): string;
+  encodeFunctionData(functionFragment: "symbol", values?: void): string;
+  encodeFunctionData(functionFragment: "decimals", values?: void): string;
+  encodeFunctionData(functionFragment: "totalSupply", values?: void): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "transfer",
@@ -125,27 +122,9 @@ export class Erc20 extends Contract {
     }>;
 
     /**
-     * Returns the name of the token.
-     */
-    "name()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
      * Returns the symbol of the token, usually a shorter version of the name.
      */
     symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -161,27 +140,9 @@ export class Erc20 extends Contract {
     }>;
 
     /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number;
-    }>;
-
-    /**
      * See {IERC20-totalSupply}.
      */
     totalSupply(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(
       overrides?: CallOverrides
     ): Promise<{
       0: BigNumber;
@@ -198,28 +159,9 @@ export class Erc20 extends Contract {
     }>;
 
     /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
      */
     transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
       overrides?: Overrides
@@ -237,29 +179,9 @@ export class Erc20 extends Contract {
     }>;
 
     /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
      */
     approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
       overrides?: Overrides
@@ -276,28 +198,9 @@ export class Erc20 extends Contract {
     ): Promise<ContractTransaction>;
 
     /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
      * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
      */
     increaseAllowance(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
       overrides?: Overrides
@@ -311,15 +214,6 @@ export class Erc20 extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -328,19 +222,9 @@ export class Erc20 extends Contract {
   name(overrides?: CallOverrides): Promise<string>;
 
   /**
-   * Returns the name of the token.
-   */
-  "name()"(overrides?: CallOverrides): Promise<string>;
-
-  /**
    * Returns the symbol of the token, usually a shorter version of the name.
    */
   symbol(overrides?: CallOverrides): Promise<string>;
-
-  /**
-   * Returns the symbol of the token, usually a shorter version of the name.
-   */
-  "symbol()"(overrides?: CallOverrides): Promise<string>;
 
   /**
    * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
@@ -348,19 +232,9 @@ export class Erc20 extends Contract {
   decimals(overrides?: CallOverrides): Promise<number>;
 
   /**
-   * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-   */
-  "decimals()"(overrides?: CallOverrides): Promise<number>;
-
-  /**
    * See {IERC20-totalSupply}.
    */
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-  /**
-   * See {IERC20-totalSupply}.
-   */
-  "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
    * See {IERC20-balanceOf}.
@@ -368,26 +242,9 @@ export class Erc20 extends Contract {
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
-   * See {IERC20-balanceOf}.
-   */
-  "balanceOf(address)"(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
    * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
    */
   transfer(
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-   */
-  "transfer(address,uint256)"(
     recipient: string,
     amount: BigNumberish,
     overrides?: Overrides
@@ -403,27 +260,9 @@ export class Erc20 extends Contract {
   ): Promise<BigNumber>;
 
   /**
-   * See {IERC20-allowance}.
-   */
-  "allowance(address,address)"(
-    owner: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
    * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
    */
   approve(
-    spender: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-   */
-  "approve(address,uint256)"(
     spender: string,
     amount: BigNumberish,
     overrides?: Overrides
@@ -440,28 +279,9 @@ export class Erc20 extends Contract {
   ): Promise<ContractTransaction>;
 
   /**
-   * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-   */
-  "transferFrom(address,address,uint256)"(
-    sender: string,
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
    * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
    */
   increaseAllowance(
-    spender: string,
-    addedValue: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-   */
-  "increaseAllowance(address,uint256)"(
     spender: string,
     addedValue: BigNumberish,
     overrides?: Overrides
@@ -476,25 +296,11 @@ export class Erc20 extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  /**
-   * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-   */
-  "decreaseAllowance(address,uint256)"(
-    spender: string,
-    subtractedValue: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
+  staticCall: {
     /**
      * Returns the name of the token.
      */
     name(overrides?: CallOverrides): Promise<string>;
-
-    /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<string>;
 
     /**
      * Returns the symbol of the token, usually a shorter version of the name.
@@ -502,19 +308,9 @@ export class Erc20 extends Contract {
     symbol(overrides?: CallOverrides): Promise<string>;
 
     /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<string>;
-
-    /**
      * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
      */
     decimals(overrides?: CallOverrides): Promise<number>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<number>;
 
     /**
      * See {IERC20-totalSupply}.
@@ -522,22 +318,9 @@ export class Erc20 extends Contract {
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
      * See {IERC20-balanceOf}.
      */
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     /**
      * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
@@ -545,16 +328,7 @@ export class Erc20 extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -567,30 +341,12 @@ export class Erc20 extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
      */
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -600,17 +356,7 @@ export class Erc20 extends Contract {
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -619,16 +365,7 @@ export class Erc20 extends Contract {
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -637,16 +374,7 @@ export class Erc20 extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
   };
 
@@ -661,335 +389,56 @@ export class Erc20 extends Contract {
   };
 
   estimateGas: {
-    /**
-     * Returns the name of the token.
-     */
-    name(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    symbol(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    decimals(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
+    name(): Promise<BigNumber>;
+    symbol(): Promise<BigNumber>;
+    decimals(): Promise<BigNumber>;
+    totalSupply(): Promise<BigNumber>;
+    balanceOf(account: string): Promise<BigNumber>;
+    transfer(recipient: string, amount: BigNumberish): Promise<BigNumber>;
+    allowance(owner: string, spender: string): Promise<BigNumber>;
+    approve(spender: string, amount: BigNumberish): Promise<BigNumber>;
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<BigNumber>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
     increaseAllowance(
       spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
+      addedValue: BigNumberish
     ): Promise<BigNumber>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
     decreaseAllowance(
       spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
+      subtractedValue: BigNumberish
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    /**
-     * Returns the name of the token.
-     */
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the name of the token.
-     */
-    "name()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the symbol of the token, usually a shorter version of the name.
-     */
-    "symbol()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5,05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is called. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}.
-     */
-    "decimals()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-totalSupply}.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-balanceOf}.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
+    name(): Promise<PopulatedTransaction>;
+    symbol(): Promise<PopulatedTransaction>;
+    decimals(): Promise<PopulatedTransaction>;
+    totalSupply(): Promise<PopulatedTransaction>;
+    balanceOf(account: string): Promise<PopulatedTransaction>;
     transfer(
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transfer}. Requirements: - `recipient` cannot be the zero address. - the caller must have a balance of at least `amount`.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-allowance}.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
+    allowance(owner: string, spender: string): Promise<PopulatedTransaction>;
     approve(
       spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-approve}. Requirements: - `spender` cannot be the zero address.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}; Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
     increaseAllowance(
       spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
+      addedValue: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address.
-     */
-    "increaseAllowance(address,uint256)"(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
     decreaseAllowance(
       spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`.
-     */
-    "decreaseAllowance(address,uint256)"(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides
+      subtractedValue: BigNumberish
     ): Promise<PopulatedTransaction>;
   };
 }

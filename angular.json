@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-truffle-box": {
+    "ng": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "targets": {
+      "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -18,15 +18,26 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/assets/data.json"
             ],
             "styles": [
-              "src/styles.css"
+              "src/scss/style.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./node_modules"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -48,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-truffle-box:build"
+            "browserTarget": "ng:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-truffle-box:build:production"
+              "browserTarget": "ng:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-truffle-box:build"
+            "browserTarget": "ng:build"
           }
         },
         "lint": {
@@ -68,43 +79,25 @@
             "tsConfig": [
               "src/tsconfig.app.json"
             ],
-            "exclude": []
-          }
-        }
-      }
-    },
-    "angular-truffle-box-e2e": {
-      "root": "e2e",
-      "sourceRoot": "e2e",
-      "projectType": "application",
-      "targets": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "angular-truffle-box:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": []
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "angular-truffle-box",
+  "defaultProject": "ng",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "style": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

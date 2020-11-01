@@ -6,7 +6,7 @@ import { Signer, BigNumberish } from "ethers";
 import { Provider, TransactionRequest } from "@ethersproject/providers";
 import { Contract, ContractFactory, Overrides } from "@ethersproject/contracts";
 
-import type { OrangeFarmer } from "./OrangeFarmer";
+import { OrangeFarmer } from "./OrangeFarmer";
 
 export class OrangeFarmerFactory extends ContractFactory {
   constructor(signer?: Signer) {

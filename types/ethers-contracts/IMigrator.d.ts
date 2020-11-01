@@ -14,7 +14,6 @@ import {
   Contract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
 } from "@ethersproject/contracts";
 import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
@@ -47,49 +46,21 @@ export class IMigrator extends Contract {
 
   functions: {
     migrate(token: string, overrides?: Overrides): Promise<ContractTransaction>;
-
-    "migrate(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
   };
 
   migrate(token: string, overrides?: Overrides): Promise<ContractTransaction>;
 
-  "migrate(address)"(
-    token: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
-    migrate(token: string, overrides?: CallOverrides): Promise<string>;
-
-    "migrate(address)"(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<string>;
+  staticCall: {
+    migrate(token: string, overrides?: Overrides): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
-    migrate(token: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "migrate(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    migrate(token: string): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    migrate(
-      token: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "migrate(address)"(
-      token: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    migrate(token: string): Promise<PopulatedTransaction>;
   };
 }

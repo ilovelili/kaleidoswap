@@ -21,7 +21,7 @@ interface IMigrator {
     function migrate(IERC20 token) external returns (IERC20);
 }
 
-// KaleidoMaster can grow Kaleido oranges and she is a fair guy.
+// KaleidoMaster can make Kaleidos and he is a fair guy.
 //
 // Note that it's ownable and the owner wields tremendous power. The ownership
 // will be transferred to a governance smart contract once KALEIDO is sufficiently

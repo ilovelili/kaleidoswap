@@ -30,9 +30,9 @@ interface MigrationsInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "last_completed_migration",
-    values?: undefined
+    values?: void
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: void): string;
   encodeFunctionData(
     functionFragment: "setCompleted",
     values: [BigNumberish]
@@ -73,19 +73,7 @@ export class Migrations extends Contract {
       0: BigNumber;
     }>;
 
-    "last_completed_migration()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
     owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string;
-    }>;
-
-    "owner()"(
       overrides?: CallOverrides
     ): Promise<{
       0: string;
@@ -96,17 +84,7 @@ export class Migrations extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>;
 
-    "setCompleted(uint256)"(
-      completed: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
     upgrade(
-      new_address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    "upgrade(address)"(
       new_address: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
@@ -114,18 +92,9 @@ export class Migrations extends Contract {
 
   last_completed_migration(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "last_completed_migration()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   owner(overrides?: CallOverrides): Promise<string>;
 
-  "owner()"(overrides?: CallOverrides): Promise<string>;
-
   setCompleted(
-    completed: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  "setCompleted(uint256)"(
     completed: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>;
@@ -135,98 +104,29 @@ export class Migrations extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  "upgrade(address)"(
-    new_address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
+  staticCall: {
     last_completed_migration(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "last_completed_migration()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    "owner()"(overrides?: CallOverrides): Promise<string>;
+    setCompleted(completed: BigNumberish, overrides?: Overrides): Promise<void>;
 
-    setCompleted(
-      completed: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setCompleted(uint256)"(
-      completed: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    upgrade(new_address: string, overrides?: CallOverrides): Promise<void>;
-
-    "upgrade(address)"(
-      new_address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    upgrade(new_address: string, overrides?: Overrides): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
-    last_completed_migration(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "last_completed_migration()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    setCompleted(
-      completed: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    "setCompleted(uint256)"(
-      completed: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    upgrade(new_address: string, overrides?: Overrides): Promise<BigNumber>;
-
-    "upgrade(address)"(
-      new_address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
+    last_completed_migration(): Promise<BigNumber>;
+    owner(): Promise<BigNumber>;
+    setCompleted(completed: BigNumberish): Promise<BigNumber>;
+    upgrade(new_address: string): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    last_completed_migration(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "last_completed_migration()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    setCompleted(
-      completed: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "setCompleted(uint256)"(
-      completed: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    upgrade(
-      new_address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    "upgrade(address)"(
-      new_address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
+    last_completed_migration(): Promise<PopulatedTransaction>;
+    owner(): Promise<PopulatedTransaction>;
+    setCompleted(completed: BigNumberish): Promise<PopulatedTransaction>;
+    upgrade(new_address: string): Promise<PopulatedTransaction>;
   };
 }

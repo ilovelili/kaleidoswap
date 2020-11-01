@@ -30,10 +30,7 @@ interface Ierc20Interface extends ethers.utils.Interface {
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "totalSupply", values?: void): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "transfer",
@@ -98,15 +95,6 @@ export class Ierc20 extends Contract {
     }>;
 
     /**
-     * Returns the amount of tokens in existence.
-     */
-    "totalSupply()"(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * Returns the amount of tokens owned by `account`.
      */
     balanceOf(
@@ -117,28 +105,9 @@ export class Ierc20 extends Contract {
     }>;
 
     /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
      */
     transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
       overrides?: Overrides
@@ -156,29 +125,9 @@ export class Ierc20 extends Contract {
     }>;
 
     /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber;
-    }>;
-
-    /**
      * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
      */
     approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
-    "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
       overrides?: Overrides
@@ -193,16 +142,6 @@ export class Ierc20 extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>;
   };
 
   /**
@@ -211,36 +150,14 @@ export class Ierc20 extends Contract {
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
-   * Returns the amount of tokens in existence.
-   */
-  "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  /**
    * Returns the amount of tokens owned by `account`.
    */
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   /**
-   * Returns the amount of tokens owned by `account`.
-   */
-  "balanceOf(address)"(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
    * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
    */
   transfer(
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-   */
-  "transfer(address,uint256)"(
     recipient: string,
     amount: BigNumberish,
     overrides?: Overrides
@@ -256,27 +173,9 @@ export class Ierc20 extends Contract {
   ): Promise<BigNumber>;
 
   /**
-   * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-   */
-  "allowance(address,address)"(
-    owner: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  /**
    * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
    */
   approve(
-    spender: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  /**
-   * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-   */
-  "approve(address,uint256)"(
     spender: string,
     amount: BigNumberish,
     overrides?: Overrides
@@ -292,26 +191,11 @@ export class Ierc20 extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>;
 
-  /**
-   * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-   */
-  "transferFrom(address,address,uint256)"(
-    sender: string,
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>;
-
-  callStatic: {
+  staticCall: {
     /**
      * Returns the amount of tokens in existence.
      */
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the amount of tokens in existence.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
      * Returns the amount of tokens owned by `account`.
@@ -319,29 +203,12 @@ export class Ierc20 extends Contract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
      */
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -354,30 +221,12 @@ export class Ierc20 extends Contract {
     ): Promise<BigNumber>;
 
     /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
      * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
      */
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
 
     /**
@@ -387,17 +236,7 @@ export class Ierc20 extends Contract {
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides
     ): Promise<boolean>;
   };
 
@@ -412,203 +251,34 @@ export class Ierc20 extends Contract {
   };
 
   estimateGas: {
-    /**
-     * Returns the amount of tokens in existence.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the amount of tokens in existence.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    transfer(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
-    approve(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
+    totalSupply(): Promise<BigNumber>;
+    balanceOf(account: string): Promise<BigNumber>;
+    transfer(recipient: string, amount: BigNumberish): Promise<BigNumber>;
+    allowance(owner: string, spender: string): Promise<BigNumber>;
+    approve(spender: string, amount: BigNumberish): Promise<BigNumber>;
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    /**
-     * Returns the amount of tokens in existence.
-     */
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the amount of tokens in existence.
-     */
-    "totalSupply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the amount of tokens owned by `account`.
-     */
-    "balanceOf(address)"(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
+    totalSupply(): Promise<PopulatedTransaction>;
+    balanceOf(account: string): Promise<PopulatedTransaction>;
     transfer(
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transfer(address,uint256)"(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.
-     */
-    "allowance(address,address)"(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
+    allowance(owner: string, spender: string): Promise<PopulatedTransaction>;
     approve(
       spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
-
-    /**
-     * Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.
-     */
-    "approve(address,uint256)"(
-      spender: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
     transferFrom(
       sender: string,
       recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>;
-
-    /**
-     * Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.
-     */
-    "transferFrom(address,address,uint256)"(
-      sender: string,
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides
+      amount: BigNumberish
     ): Promise<PopulatedTransaction>;
   };
 }
