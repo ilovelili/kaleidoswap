@@ -3,8 +3,8 @@
   "name": "Farm KALEIDO with Uniswap LP Tokens",
   "icons": [
     {
-      "src": "favicon.png",
-      "type": "image/png",
+      "src": "favicon.ico",
+      "type": "image/icon",
       "sizes": "240x240"
     }
   ],

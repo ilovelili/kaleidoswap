@@ -14,6 +14,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import { CHAIN_ID } from './sushi/lib/constants'
+import './utils/I18n'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)

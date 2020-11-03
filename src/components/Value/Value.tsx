@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import CountUp from 'react-countup'
-
 import styled from 'styled-components'
 
 interface ValueProps {
@@ -17,7 +16,7 @@ const Value: React.FC<ValueProps> = ({ value, decimals }) => {
       updateStart(end)
       updateEnd(value)
     }
-  }, [value])
+  }, [value, end])
 
   return (
     <StyledValue>

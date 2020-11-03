@@ -30,7 +30,7 @@ const Modals: React.FC = ({ children }) => {
   const handleDismiss = useCallback(() => {
     setContent(undefined)
     setIsOpen(false)
-  }, [setContent, setIsOpen, modalKey])
+  }, [setContent, setIsOpen])
 
   return (
     <Context.Provider

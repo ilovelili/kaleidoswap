@@ -14,8 +14,8 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon={<img src={logo} height={120} />}
-        title={t('Kaleido Swap is Ready')}
+        icon={<img src={logo} height={120} alt="logo" />}
+        title={t('KaleidoSwap Bakery is Ready')}
         subtitle={t(
           'Stake KaleidoSwap LP tokens to claim your very own KALEIDO token!',
         )}
@@ -26,7 +26,10 @@ const Home: React.FC = () => {
       </Container>
       <Spacer size="lg" />
       <StyledInfo>
-        🏆<b>{t('Pro Tip')}</b>:{' '}
+        <span role="img" aria-labelledby="">
+          🏆
+        </span>
+        <b>{t('Pro Tip')}</b>:{' '}
         {t(
           'KALEIDO-ETH LP token pool yields 4.8x more token rewards per block.',
         )}{' '}
@@ -37,7 +40,7 @@ const Home: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        <Button text={t('☸ See the Menu')} to="/farms" variant="secondary" />
+        <Button text={t('👓 See the Menu')} to="/farms" variant="secondary" />
       </div>
     </Page>
   )

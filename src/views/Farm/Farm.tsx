@@ -16,15 +16,9 @@ import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
   const { farmId } = useParams<{ farmId?: string }>()
-  const {
-    pid,
-    lpToken,
-    lpTokenAddress,
-    tokenAddress,
-    earnToken,
-    name,
-    icon,
-  } = useFarm(farmId) || {
+  const { pid, lpToken, lpTokenAddress, earnToken, name, icon } = useFarm(
+    farmId,
+  ) || {
     pid: 0,
     lpToken: '',
     lpTokenAddress: '',
@@ -45,7 +39,7 @@ const Farm: React.FC = () => {
     return getContract(ethereum as provider, lpTokenAddress)
   }, [ethereum, lpTokenAddress])
 
-  const { onRedeem } = useRedeem(getMasterChefContract(sushi))
+  useRedeem(getMasterChefContract(sushi))
 
   const lpTokenName = useMemo(() => {
     return lpToken

@@ -10,6 +10,7 @@ interface KaleidoIconProps {
 const KaleidoIcon: React.FC<KaleidoIconProps> = ({ size = 36, v1, v2, v3 }) => (
   <span
     role="img"
+    aria-labelledby=""
     style={{
       fontSize: size,
       filter: v1 ? 'saturate(0.5)' : undefined,

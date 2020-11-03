@@ -54,7 +54,7 @@ const useAllStakedValue = () => {
     )
 
     setBalance(balances)
-  }, [account, masterChefContract, sushi])
+  }, [masterChefContract, farms, wethContact])
 
   useEffect(() => {
     if (account && masterChefContract && sushi) {

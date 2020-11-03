@@ -5,7 +5,7 @@ const Nav: React.FC = () => {
   return (
     <StyledNav>
       <StyledLink target="_blank" href="#">
-        KaleidoMaker Contract
+        KaleidoBakery Contract
       </StyledLink>
       {/*<StyledLink
         target="_blank"

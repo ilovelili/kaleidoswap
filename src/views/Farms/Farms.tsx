@@ -23,7 +23,7 @@ const Farms: React.FC = () => {
           <>
             <Route exact path={path}>
               <PageHeader
-                icon={<img src={logo} height="120" />}
+                icon={<img src={logo} height="120" alt="logo" />}
                 subtitle={t(
                   'Earn KALEIDO tokens by staking KaleidoSwap SLP Tokens.',
                 )}

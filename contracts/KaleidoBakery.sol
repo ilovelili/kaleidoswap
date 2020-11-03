@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.12;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import "@openzeppelin/contracts/utils/EnumerableSet.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "./KaleidoToken.sol";
+import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
+import '@openzeppelin/contracts/utils/EnumerableSet.sol';
+import '@openzeppelin/contracts/math/SafeMath.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
+import './KaleidoToken.sol';
 
 interface IMigrator {
     // Perform LP token migration from legacy UniswapV2 to KaleidoSwap.
@@ -21,14 +21,14 @@ interface IMigrator {
     function migrate(IERC20 token) external returns (IERC20);
 }
 
-// KaleidoMaster can make Kaleidos and he is a fair guy.
+// KaleidoBakery can make Kaleidos and he is a fair guy.
 //
 // Note that it's ownable and the owner wields tremendous power. The ownership
 // will be transferred to a governance smart contract once KALEIDO is sufficiently
 // distributed and the community can show to govern itself.
 //
 // Have fun reading it. Hopefully it's bug-free. God bless. Buddha bless. Allah bless.
-contract KaleidoMaster is Ownable {
+contract KaleidoBakery is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -151,13 +151,13 @@ contract KaleidoMaster is Ownable {
 
     // Migrate lp token to another lp contract. Can be called by anyone. We trust that migrator contract is good.
     function migrate(uint256 _pid) public {
-        require(address(migrator) != address(0), "migrate: no migrator");
+        require(address(migrator) != address(0), 'migrate: no migrator');
         PoolInfo storage pool = poolInfo[_pid];
         IERC20 lpToken = pool.lpToken;
         uint256 bal = lpToken.balanceOf(address(this));
         lpToken.safeApprove(address(migrator), bal);
         IERC20 newLpToken = migrator.migrate(lpToken);
-        require(bal == newLpToken.balanceOf(address(this)), "migrate: bad");
+        require(bal == newLpToken.balanceOf(address(this)), 'migrate: bad');
         pool.lpToken = newLpToken;
     }
 
@@ -239,7 +239,7 @@ contract KaleidoMaster is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    // Deposit LP tokens to KaleidoMaster for KALEIDO allocation.
+    // Deposit LP tokens to KaleidoBakery for KALEIDO allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -266,11 +266,11 @@ contract KaleidoMaster is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from KaleidoMaster.
+    // Withdraw LP tokens from KaleidoBakery.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        require(user.amount >= _amount, "withdraw: not good");
+        require(user.amount >= _amount, 'withdraw: not good');
         updatePool(_pid);
         uint256 pending = user
             .amount
@@ -310,7 +310,7 @@ contract KaleidoMaster is Ownable {
 
     // Update dev address by the previous dev.
     function dev(address _devaddr) public {
-        require(msg.sender == devaddr, "dev: wut?");
+        require(msg.sender == devaddr, 'dev: wut?');
         devaddr = _devaddr;
     }
 }

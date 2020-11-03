@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
@@ -23,15 +24,18 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
     }
   }, [account, onDismiss])
 
+  const { t } = useTranslation()
   return (
     <Modal>
-      <ModalTitle text="Select a wallet provider." />
+      <ModalTitle text={t('Select a wallet provider.')} />
 
       <ModalContent>
         <StyledWalletsWrapper>
           <StyledWalletCard>
             <WalletCard
-              icon={<img src={metamaskLogo} style={{ height: 32 }} />}
+              icon={
+                <img src={metamaskLogo} style={{ height: 32 }} alt="Metamask" />
+              }
               onConnect={() => connect('injected')}
               title="Metamask"
             />
@@ -39,7 +43,13 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <Spacer size="sm" />
           <StyledWalletCard>
             <WalletCard
-              icon={<img src={walletConnectLogo} style={{ height: 24 }} />}
+              icon={
+                <img
+                  src={walletConnectLogo}
+                  style={{ height: 24 }}
+                  alt="WalletConnect"
+                />
+              }
               onConnect={() => connect('walletconnect')}
               title="WalletConnect"
             />

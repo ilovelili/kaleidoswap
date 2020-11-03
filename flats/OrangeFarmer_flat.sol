@@ -123,7 +123,7 @@ library SafeMath {
      */
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
-        require(c >= a, "SafeMath: addition overflow");
+        require(c >= a, 'SafeMath: addition overflow');
 
         return c;
     }
@@ -139,7 +139,7 @@ library SafeMath {
      * - Subtraction cannot overflow.
      */
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        return sub(a, b, "SafeMath: subtraction overflow");
+        return sub(a, b, 'SafeMath: subtraction overflow');
     }
 
     /**
@@ -182,7 +182,7 @@ library SafeMath {
         }
 
         uint256 c = a * b;
-        require(c / a == b, "SafeMath: multiplication overflow");
+        require(c / a == b, 'SafeMath: multiplication overflow');
 
         return c;
     }
@@ -200,7 +200,7 @@ library SafeMath {
      * - The divisor cannot be zero.
      */
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        return div(a, b, "SafeMath: division by zero");
+        return div(a, b, 'SafeMath: division by zero');
     }
 
     /**
@@ -240,7 +240,7 @@ library SafeMath {
      * - The divisor cannot be zero.
      */
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        return mod(a, b, "SafeMath: modulo by zero");
+        return mod(a, b, 'SafeMath: modulo by zero');
     }
 
     /**
@@ -324,14 +324,14 @@ library Address {
     function sendValue(address payable recipient, uint256 amount) internal {
         require(
             address(this).balance >= amount,
-            "Address: insufficient balance"
+            'Address: insufficient balance'
         );
 
         // solhint-disable-next-line avoid-low-level-calls, avoid-call-value
-        (bool success, ) = recipient.call{value: amount}("");
+        (bool success, ) = recipient.call{ value: amount }('');
         require(
             success,
-            "Address: unable to send value, recipient may have reverted"
+            'Address: unable to send value, recipient may have reverted'
         );
     }
 
@@ -357,7 +357,7 @@ library Address {
         internal
         returns (bytes memory)
     {
-        return functionCall(target, data, "Address: low-level call failed");
+        return functionCall(target, data, 'Address: low-level call failed');
     }
 
     /**
@@ -395,7 +395,7 @@ library Address {
                 target,
                 data,
                 value,
-                "Address: low-level call with value failed"
+                'Address: low-level call with value failed'
             );
     }
 
@@ -413,7 +413,7 @@ library Address {
     ) internal returns (bytes memory) {
         require(
             address(this).balance >= value,
-            "Address: insufficient balance for call"
+            'Address: insufficient balance for call'
         );
         return _functionCallWithValue(target, data, value, errorMessage);
     }
@@ -424,12 +424,12 @@ library Address {
         uint256 weiValue,
         string memory errorMessage
     ) private returns (bytes memory) {
-        require(isContract(target), "Address: call to non-contract");
+        require(isContract(target), 'Address: call to non-contract');
 
         // solhint-disable-next-line avoid-low-level-calls
-        (bool success, bytes memory returndata) = target.call{value: weiValue}(
-            data
-        );
+        (bool success, bytes memory returndata) = target.call{
+            value: weiValue
+        }(data);
         if (success) {
             return returndata;
         } else {
@@ -509,7 +509,7 @@ library SafeERC20 {
         // solhint-disable-next-line max-line-length
         require(
             (value == 0) || (token.allowance(address(this), spender) == 0),
-            "SafeERC20: approve from non-zero to non-zero allowance"
+            'SafeERC20: approve from non-zero to non-zero allowance'
         );
         _callOptionalReturn(
             token,
@@ -542,7 +542,7 @@ library SafeERC20 {
     ) internal {
         uint256 newAllowance = token.allowance(address(this), spender).sub(
             value,
-            "SafeERC20: decreased allowance below zero"
+            'SafeERC20: decreased allowance below zero'
         );
         _callOptionalReturn(
             token,
@@ -567,14 +567,14 @@ library SafeERC20 {
 
         bytes memory returndata = address(token).functionCall(
             data,
-            "SafeERC20: low-level call failed"
+            'SafeERC20: low-level call failed'
         );
         if (returndata.length > 0) {
             // Return data is optional
             // solhint-disable-next-line max-line-length
             require(
                 abi.decode(returndata, (bool)),
-                "SafeERC20: ERC20 operation did not succeed"
+                'SafeERC20: ERC20 operation did not succeed'
             );
         }
     }
@@ -722,7 +722,7 @@ library EnumerableSet {
     {
         require(
             set._values.length > index,
-            "EnumerableSet: index out of bounds"
+            'EnumerableSet: index out of bounds'
         );
         return set._values[index];
     }
@@ -934,7 +934,7 @@ contract Ownable is Context {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(_owner == _msgSender(), "Ownable: caller is not the owner");
+        require(_owner == _msgSender(), 'Ownable: caller is not the owner');
         _;
     }
 
@@ -957,7 +957,7 @@ contract Ownable is Context {
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(
             newOwner != address(0),
-            "Ownable: new owner is the zero address"
+            'Ownable: new owner is the zero address'
         );
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
@@ -1140,7 +1140,7 @@ contract ERC20 is Context, IERC20 {
             _msgSender(),
             _allowances[sender][_msgSender()].sub(
                 amount,
-                "ERC20: transfer amount exceeds allowance"
+                'ERC20: transfer amount exceeds allowance'
             )
         );
         return true;
@@ -1195,7 +1195,7 @@ contract ERC20 is Context, IERC20 {
             spender,
             _allowances[_msgSender()][spender].sub(
                 subtractedValue,
-                "ERC20: decreased allowance below zero"
+                'ERC20: decreased allowance below zero'
             )
         );
         return true;
@@ -1220,14 +1220,14 @@ contract ERC20 is Context, IERC20 {
         address recipient,
         uint256 amount
     ) internal virtual {
-        require(sender != address(0), "ERC20: transfer from the zero address");
-        require(recipient != address(0), "ERC20: transfer to the zero address");
+        require(sender != address(0), 'ERC20: transfer from the zero address');
+        require(recipient != address(0), 'ERC20: transfer to the zero address');
 
         _beforeTokenTransfer(sender, recipient, amount);
 
         _balances[sender] = _balances[sender].sub(
             amount,
-            "ERC20: transfer amount exceeds balance"
+            'ERC20: transfer amount exceeds balance'
         );
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);
@@ -1243,7 +1243,7 @@ contract ERC20 is Context, IERC20 {
      * - `to` cannot be the zero address.
      */
     function _mint(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: mint to the zero address");
+        require(account != address(0), 'ERC20: mint to the zero address');
 
         _beforeTokenTransfer(address(0), account, amount);
 
@@ -1264,13 +1264,13 @@ contract ERC20 is Context, IERC20 {
      * - `account` must have at least `amount` tokens.
      */
     function _burn(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: burn from the zero address");
+        require(account != address(0), 'ERC20: burn from the zero address');
 
         _beforeTokenTransfer(account, address(0), amount);
 
         _balances[account] = _balances[account].sub(
             amount,
-            "ERC20: burn amount exceeds balance"
+            'ERC20: burn amount exceeds balance'
         );
         _totalSupply = _totalSupply.sub(amount);
         emit Transfer(account, address(0), amount);
@@ -1294,8 +1294,8 @@ contract ERC20 is Context, IERC20 {
         address spender,
         uint256 amount
     ) internal virtual {
-        require(owner != address(0), "ERC20: approve from the zero address");
-        require(spender != address(0), "ERC20: approve to the zero address");
+        require(owner != address(0), 'ERC20: approve from the zero address');
+        require(spender != address(0), 'ERC20: approve to the zero address');
 
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
@@ -1339,8 +1339,8 @@ contract ERC20 is Context, IERC20 {
 pragma solidity 0.6.12;
 
 // KaleidoToken with Governance.
-contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
-    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
+contract KaleidoToken is ERC20('KaleidoToken', 'KALEIDO'), Ownable {
+    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoBakery).
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
         _moveDelegates(address(0), _delegates[_to], _amount);
@@ -1369,12 +1369,12 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
 
     /// @notice The EIP-712 typehash for the contract's domain
     bytes32 public constant DOMAIN_TYPEHASH = keccak256(
-        "EIP712Domain(string name,uint256 chainId,address verifyingContract)"
+        'EIP712Domain(string name,uint256 chainId,address verifyingContract)'
     );
 
     /// @notice The EIP-712 typehash for the delegation struct used by the contract
     bytes32 public constant DELEGATION_TYPEHASH = keccak256(
-        "Delegation(address delegatee,uint256 nonce,uint256 expiry)"
+        'Delegation(address delegatee,uint256 nonce,uint256 expiry)'
     );
 
     /// @notice A record of states for signing / validating signatures
@@ -1441,19 +1441,19 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
         );
 
         bytes32 digest = keccak256(
-            abi.encodePacked("\x19\x01", domainSeparator, structHash)
+            abi.encodePacked('\x19\x01', domainSeparator, structHash)
         );
 
         address signatory = ecrecover(digest, v, r, s);
         require(
             signatory != address(0),
-            "KALEIDO::delegateBySig: invalid signature"
+            'KALEIDO::delegateBySig: invalid signature'
         );
         require(
             nonce == nonces[signatory]++,
-            "KALEIDO::delegateBySig: invalid nonce"
+            'KALEIDO::delegateBySig: invalid nonce'
         );
-        require(now <= expiry, "KALEIDO::delegateBySig: signature expired");
+        require(now <= expiry, 'KALEIDO::delegateBySig: signature expired');
         return _delegate(signatory, delegatee);
     }
 
@@ -1482,7 +1482,7 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
     {
         require(
             blockNumber < block.number,
-            "KALEIDO::getPriorVotes: not yet determined"
+            'KALEIDO::getPriorVotes: not yet determined'
         );
 
         uint32 nCheckpoints = numCheckpoints[account];
@@ -1561,7 +1561,7 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
     ) internal {
         uint32 blockNumber = safe32(
             block.number,
-            "KALEIDO::_writeCheckpoint: block number exceeds 32 bits"
+            'KALEIDO::_writeCheckpoint: block number exceeds 32 bits'
         );
 
         if (
@@ -1598,7 +1598,7 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
     }
 }
 
-// File: contracts/KaleidoMaster.sol
+// File: contracts/KaleidoBakery.sol
 
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.12;
@@ -1616,14 +1616,14 @@ interface IMigrator {
     function migrate(IERC20 token) external returns (IERC20);
 }
 
-// KaleidoMaster can grow Kaleido oranges and she is a fair guy.
+// KaleidoBakery can grow Kaleido oranges and she is a fair guy.
 //
 // Note that it's ownable and the owner wields tremendous power. The ownership
 // will be transferred to a governance smart contract once KALEIDO is sufficiently
 // distributed and the community can show to govern itself.
 //
 // Have fun reading it. Hopefully it's bug-free. God bless. Buddha bless. Allah bless.
-contract KaleidoMaster is Ownable {
+contract KaleidoBakery is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -1746,13 +1746,13 @@ contract KaleidoMaster is Ownable {
 
     // Migrate lp token to another lp contract. Can be called by anyone. We trust that migrator contract is good.
     function migrate(uint256 _pid) public {
-        require(address(migrator) != address(0), "migrate: no migrator");
+        require(address(migrator) != address(0), 'migrate: no migrator');
         PoolInfo storage pool = poolInfo[_pid];
         IERC20 lpToken = pool.lpToken;
         uint256 bal = lpToken.balanceOf(address(this));
         lpToken.safeApprove(address(migrator), bal);
         IERC20 newLpToken = migrator.migrate(lpToken);
-        require(bal == newLpToken.balanceOf(address(this)), "migrate: bad");
+        require(bal == newLpToken.balanceOf(address(this)), 'migrate: bad');
         pool.lpToken = newLpToken;
     }
 
@@ -1834,7 +1834,7 @@ contract KaleidoMaster is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    // Deposit LP tokens to KaleidoMaster for KALEIDO allocation.
+    // Deposit LP tokens to KaleidoBakery for KALEIDO allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -1861,11 +1861,11 @@ contract KaleidoMaster is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from KaleidoMaster.
+    // Withdraw LP tokens from KaleidoBakery.
     function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
-        require(user.amount >= _amount, "withdraw: not good");
+        require(user.amount >= _amount, 'withdraw: not good');
         updatePool(_pid);
         uint256 pending = user
             .amount
@@ -1905,7 +1905,7 @@ contract KaleidoMaster is Ownable {
 
     // Update dev address by the previous dev.
     function dev(address _devaddr) public {
-        require(msg.sender == devaddr, "dev: wut?");
+        require(msg.sender == devaddr, 'dev: wut?');
         devaddr = _devaddr;
     }
 }

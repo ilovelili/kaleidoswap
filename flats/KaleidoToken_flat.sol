@@ -798,8 +798,8 @@ pragma solidity 0.6.12;
 
 
 // KaleidoToken with Governance.
-contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
-    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoMaster).
+contract KaleidoToken is ERC20('KaleidoToken', 'KALEIDO'), Ownable {
+    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (KaleidoBakery).
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
         _moveDelegates(address(0), _delegates[_to], _amount);
@@ -828,12 +828,12 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
 
     /// @notice The EIP-712 typehash for the contract's domain
     bytes32 public constant DOMAIN_TYPEHASH = keccak256(
-        "EIP712Domain(string name,uint256 chainId,address verifyingContract)"
+        'EIP712Domain(string name,uint256 chainId,address verifyingContract)'
     );
 
     /// @notice The EIP-712 typehash for the delegation struct used by the contract
     bytes32 public constant DELEGATION_TYPEHASH = keccak256(
-        "Delegation(address delegatee,uint256 nonce,uint256 expiry)"
+        'Delegation(address delegatee,uint256 nonce,uint256 expiry)'
     );
 
     /// @notice A record of states for signing / validating signatures
@@ -900,19 +900,19 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
         );
 
         bytes32 digest = keccak256(
-            abi.encodePacked("\x19\x01", domainSeparator, structHash)
+            abi.encodePacked('\x19\x01', domainSeparator, structHash)
         );
 
         address signatory = ecrecover(digest, v, r, s);
         require(
             signatory != address(0),
-            "KALEIDO::delegateBySig: invalid signature"
+            'KALEIDO::delegateBySig: invalid signature'
         );
         require(
             nonce == nonces[signatory]++,
-            "KALEIDO::delegateBySig: invalid nonce"
+            'KALEIDO::delegateBySig: invalid nonce'
         );
-        require(now <= expiry, "KALEIDO::delegateBySig: signature expired");
+        require(now <= expiry, 'KALEIDO::delegateBySig: signature expired');
         return _delegate(signatory, delegatee);
     }
 
@@ -941,7 +941,7 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
     {
         require(
             blockNumber < block.number,
-            "KALEIDO::getPriorVotes: not yet determined"
+            'KALEIDO::getPriorVotes: not yet determined'
         );
 
         uint32 nCheckpoints = numCheckpoints[account];
@@ -1020,7 +1020,7 @@ contract KaleidoToken is ERC20("KaleidoToken", "KALEIDO"), Ownable {
     ) internal {
         uint32 blockNumber = safe32(
             block.number,
-            "KALEIDO::_writeCheckpoint: block number exceeds 32 bits"
+            'KALEIDO::_writeCheckpoint: block number exceeds 32 bits'
         );
 
         if (

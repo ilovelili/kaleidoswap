@@ -25,6 +25,7 @@ interface FarmWithStakedValue extends Farm, StakedValue {
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const { account } = useWallet()
+  console.log('account', account)
   const stakedValue = useAllStakedValue()
 
   const sushiIndex = farms.findIndex(
@@ -134,7 +135,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       <Card>
         <CardContent>
           <StyledContent>
-            {/* <CardIcon>{farm.icon}</CardIcon> */}
+            <CardIcon>{farm.icon}</CardIcon>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
               <StyledDetail>Deposit {farm.lpToken}</StyledDetail>
