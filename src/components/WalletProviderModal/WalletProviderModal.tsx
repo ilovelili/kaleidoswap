@@ -16,7 +16,8 @@ import Spacer from '../Spacer'
 import WalletCard from './components/WalletCard'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
-  const { account, connect } = useWallet()
+  const { account, connect, networkName } = useWallet()
+  console.log('Network Name', networkName)
 
   useEffect(() => {
     if (account) {

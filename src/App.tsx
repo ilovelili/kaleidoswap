@@ -1,20 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
-import DisclaimerModal from './components/DisclaimerModal'
 import MobileMenu from './components/MobileMenu'
 import TopBar from './components/TopBar'
 import FarmsProvider from './contexts/Farms'
 import ModalsProvider from './contexts/Modals'
 import TransactionProvider from './contexts/Transactions'
 import SushiProvider from './contexts/SushiProvider'
-import useModal from './hooks/useModal'
 import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
-import { CHAIN_ID } from './sushi/lib/constants'
 import './utils/I18n'
+import resolveChainID from './utils/network'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -46,12 +44,14 @@ const App: React.FC = () => {
 }
 
 const Providers: React.FC = ({ children }) => {
+  const network = process.env.REACT_APP_NETWORK
+  const rpcUrl = `https://${network}.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`
   return (
     <ThemeProvider theme={theme}>
       <UseWalletProvider
-        chainId={CHAIN_ID}
+        chainId={resolveChainID(network)}
         connectors={{
-          walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+          walletconnect: { rpcUrl },
         }}
       >
         <SushiProvider>
@@ -64,25 +64,6 @@ const Providers: React.FC = ({ children }) => {
       </UseWalletProvider>
     </ThemeProvider>
   )
-}
-
-const Disclaimer: React.FC = () => {
-  const markSeen = useCallback(() => {
-    localStorage.setItem('disclaimer', 'seen')
-  }, [])
-
-  const [onPresentDisclaimerModal] = useModal(
-    <DisclaimerModal onConfirm={markSeen} />,
-  )
-
-  useEffect(() => {
-    const seenDisclaimer = false //localStorage.getItem('disclaimer')
-    if (!seenDisclaimer) {
-      onPresentDisclaimerModal()
-    }
-  }, [])
-
-  return <div />
 }
 
 export default App

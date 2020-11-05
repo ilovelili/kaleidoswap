@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         icon={<img src={logo} height={120} alt="logo" />}
         title={t('KaleidoSwap Bakery is Ready')}
         subtitle={t(
-          'Stake KaleidoSwap LP tokens to claim your very own KALEIDO token!',
+          'Stake KaleidoSwap LP tokens to claim your own KALEIDO token!',
         )}
       />
 
