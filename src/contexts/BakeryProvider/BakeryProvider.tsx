@@ -2,11 +2,11 @@ import React, { createContext, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 import { Sushi } from '../../sushi'
 
-export interface SushiContext {
+export interface BakeryContext {
   sushi?: typeof Sushi
 }
 
-export const Context = createContext<SushiContext>({
+export const Context = createContext<BakeryContext>({
   sushi: undefined,
 })
 

@@ -1,4 +1,5 @@
 {
   "network": "rinkeby",
-  "infura_api_key": "15d4004b3d9d4eef90898b33ba6358c8"
+  "infura_api_key": "15d4004b3d9d4eef90898b33ba6358c8",
+  "redeem_activite_timestamp": 1606748400000
 }

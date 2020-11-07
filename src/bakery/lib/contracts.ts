@@ -1,71 +1,85 @@
-import BigNumber from 'bignumber.js/bignumber'
-import ERC20Abi from './abi/erc20.json'
-import MasterChefAbi from './abi/masterchef.json'
-import XSushiAbi from './abi/xsushi.json'
-import SushiAbi from './abi/sushi.json'
-import UNIV2PairAbi from './abi/uni_v2_lp.json'
-import WETHAbi from './abi/weth.json'
-import {
-  contractAddresses,
-  SUBTRACT_GAS_LIMIT,
-  supportedPools,
-} from './constants.js'
-import * as Types from './types.js'
+import { KaleidoOptions } from '../Kaleido'
+import Web3 from 'web3'
+import { provider } from 'web3-core'
+import BigNumber from 'bignumber.js'
+import { Contract } from 'web3-eth-contract'
+import { ContractAddresses, Pool, SupportedPools } from '../pool'
+import { SUBTRACT_GAS_LIMIT } from './constants'
+const UNIV2PairAbi = require('./abi/uni_v2_lp.json')
+const KaleidoBakeryAbi = require('./abi/kaleidobakery.json')
+const KaleidoTokenAbi = require('./abi/kaleidotoken.json')
+const WETHAbi = require('./abi/weth.json')
+const ERC20Abi = require('./abi/erc20.json')
+
+export const ConfirmationType = {
+  Hash: 0,
+  Confirmed: 1,
+  Both: 2,
+  Simulate: 3,
+}
 
 export class Contracts {
-  constructor(provider, networkId, web3, options) {
+  web3: Web3
+  defaultConfirmations: number
+  autoGasMultiplier: number
+  confirmationType: number
+  defaultGas: number
+  defaultGasPrice: BigNumber
+  blockGasLimit: number
+  pools: Pool[]
+
+  kaleidoToken: Contract
+  kaleidoBakery: Contract
+  xSushiStaking: Contract
+  weth: Contract
+
+  constructor(provider: provider, web3: Web3, options: KaleidoOptions) {
     this.web3 = web3
     this.defaultConfirmations = options.defaultConfirmations
     this.autoGasMultiplier = options.autoGasMultiplier || 1.5
     this.confirmationType =
-      options.confirmationType || Types.ConfirmationType.Confirmed
+      options.confirmationType || ConfirmationType.Confirmed
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    this.sushi = new this.web3.eth.Contract(SushiAbi)
-    this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
-    this.xSushiStaking = new this.web3.eth.Contract(XSushiAbi)
+    this.kaleidoToken = new this.web3.eth.Contract(KaleidoTokenAbi)
+    this.kaleidoBakery = new this.web3.eth.Contract(KaleidoBakeryAbi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
 
-    this.pools = supportedPools.map((pool) =>
+    this.pools = SupportedPools.map((pool) =>
       Object.assign(pool, {
-        lpAddress: pool.lpAddresses[networkId],
-        tokenAddress: pool.tokenAddresses[networkId],
+        lpAddress: pool.lpAddress,
+        tokenAddress: pool.tokenAddress,
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
         tokenContract: new this.web3.eth.Contract(ERC20Abi),
       }),
     )
 
-    this.setProvider(provider, networkId)
+    this.setProvider(provider)
     this.setDefaultAccount(this.web3.eth.defaultAccount)
   }
 
-  setProvider(provider, networkId) {
-    const setProvider = (contract, address) => {
-      contract.setProvider(provider)
-      if (address) contract.options.address = address
-      else console.error('Contract address not found in network', networkId)
-    }
+  setProvider(provider: provider) {
+    this.web3.setProvider(provider)
 
-    setProvider(this.sushi, contractAddresses.sushi[networkId])
-    setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-    setProvider(this.xSushiStaking, contractAddresses.xSushi[networkId])
-    setProvider(this.weth, contractAddresses.weth[networkId])
+    this.kaleidoToken.options.address = ContractAddresses.kaleidoToken
+    this.kaleidoBakery.options.address = ContractAddresses.kaleidoBakery
+    this.weth.options.address = ContractAddresses.weth
 
     this.pools.forEach(
       ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
-        setProvider(lpContract, lpAddress)
-        setProvider(tokenContract, tokenAddress)
+        lpContract.options.address = lpAddress
+        tokenContract.options.address = tokenAddress
       },
     )
   }
 
-  setDefaultAccount(account) {
-    this.sushi.options.from = account
-    this.masterChef.options.from = account
+  setDefaultAccount(account: string) {
+    this.kaleidoToken.options.from = account
+    this.kaleidoBakery.options.from = account
   }
 
-  async callContractFunction(method, options) {
+  async callContractFunction(method: any, options: any) {
     const {
       confirmations,
       confirmationType,
@@ -81,12 +95,9 @@ export class Contracts {
       txOptions.gasPrice = this.defaultGasPrice
     }
 
-    if (confirmationType === Types.ConfirmationType.Simulate || !options.gas) {
+    if (confirmationType === ConfirmationType.Simulate || !options.gas) {
       let gasEstimate
-      if (
-        this.defaultGas &&
-        confirmationType !== Types.ConfirmationType.Simulate
-      ) {
+      if (this.defaultGas && confirmationType !== ConfirmationType.Simulate) {
         txOptions.gas = this.defaultGas
       } else {
         try {
@@ -106,7 +117,7 @@ export class Contracts {
           totalGas < this.blockGasLimit ? totalGas : this.blockGasLimit
       }
 
-      if (confirmationType === Types.ConfirmationType.Simulate) {
+      if (confirmationType === ConfirmationType.Simulate) {
         let g = txOptions.gas
         return { gasEstimate, g }
       }
@@ -132,19 +143,16 @@ export class Contracts {
     const t =
       confirmationType !== undefined ? confirmationType : this.confirmationType
 
-    if (!Object.values(Types.ConfirmationType).includes(t)) {
+    if (!Object.values(ConfirmationType).includes(t)) {
       throw new Error(`Invalid confirmation type: ${t}`)
     }
 
     let hashPromise
     let confirmationPromise
 
-    if (
-      t === Types.ConfirmationType.Hash ||
-      t === Types.ConfirmationType.Both
-    ) {
+    if (t === ConfirmationType.Hash || t === ConfirmationType.Both) {
       hashPromise = new Promise((resolve, reject) => {
-        promi.on('error', (error) => {
+        promi.on('error', (error: Error) => {
           if (hashOutcome === OUTCOMES.INITIAL) {
             hashOutcome = OUTCOMES.REJECTED
             reject(error)
@@ -153,11 +161,11 @@ export class Contracts {
           }
         })
 
-        promi.on('transactionHash', (txHash) => {
+        promi.on('transactionHash', (txHash: string) => {
           if (hashOutcome === OUTCOMES.INITIAL) {
             hashOutcome = OUTCOMES.RESOLVED
             resolve(txHash)
-            if (t !== Types.ConfirmationType.Both) {
+            if (t !== ConfirmationType.Both) {
               const anyPromi = promi
               anyPromi.off()
             }
@@ -166,14 +174,11 @@ export class Contracts {
       })
     }
 
-    if (
-      t === Types.ConfirmationType.Confirmed ||
-      t === Types.ConfirmationType.Both
-    ) {
+    if (t === ConfirmationType.Confirmed || t === ConfirmationType.Both) {
       confirmationPromise = new Promise((resolve, reject) => {
-        promi.on('error', (error) => {
+        promi.on('error', (error: Error) => {
           if (
-            (t === Types.ConfirmationType.Confirmed ||
+            (t === ConfirmationType.Confirmed ||
               hashOutcome === OUTCOMES.RESOLVED) &&
             confirmationOutcome === OUTCOMES.INITIAL
           ) {
@@ -186,7 +191,7 @@ export class Contracts {
 
         const desiredConf = confirmations || this.defaultConfirmations
         if (desiredConf) {
-          promi.on('confirmation', (confNumber, receipt) => {
+          promi.on('confirmation', (confNumber: number, receipt: string) => {
             if (confNumber >= desiredConf) {
               if (confirmationOutcome === OUTCOMES.INITIAL) {
                 confirmationOutcome = OUTCOMES.RESOLVED
@@ -197,7 +202,7 @@ export class Contracts {
             }
           })
         } else {
-          promi.on('receipt', (receipt) => {
+          promi.on('receipt', (receipt: string) => {
             confirmationOutcome = OUTCOMES.RESOLVED
             resolve(receipt)
             const anyPromi = promi
@@ -207,29 +212,23 @@ export class Contracts {
       })
     }
 
-    if (t === Types.ConfirmationType.Hash) {
+    if (t === ConfirmationType.Hash) {
       const transactionHash = await hashPromise
-      if (this.notifier) {
-        this.notifier.hash(transactionHash)
-      }
       return { transactionHash }
     }
 
-    if (t === Types.ConfirmationType.Confirmed) {
+    if (t === ConfirmationType.Confirmed) {
       return confirmationPromise
     }
 
     const transactionHash = await hashPromise
-    if (this.notifier) {
-      this.notifier.hash(transactionHash)
-    }
     return {
       transactionHash,
       confirmation: confirmationPromise,
     }
   }
 
-  async callConstantContractFunction(method, options) {
+  async callConstantContractFunction(method: any, options: any) {
     const m2 = method
     const { blockNumber, ...txOptions } = options
     return m2.call(txOptions, blockNumber)
