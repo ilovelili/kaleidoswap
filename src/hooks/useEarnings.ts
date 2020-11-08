@@ -1,29 +1,25 @@
 import { useCallback, useEffect, useState } from 'react'
-
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
-
-import { getEarned, getMasterChefContract } from '../sushi/utils'
+import { getEarned, getBakeryContract } from '../kaleido/utils'
 import useKaleido from './useKaleido'
-import useBlock from './useBlock'
 
 const useEarnings = (pid: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))
   const { account }: { account: string } = useWallet()
-  const sushi = useSushi()
-  const masterChefContract = getMasterChefContract(sushi)
-  const block = useBlock()
+  const kaleido = useKaleido()
+  const bakeryContract = getBakeryContract(kaleido)
 
   const fetchBalance = useCallback(async () => {
-    const balance = await getEarned(masterChefContract, pid, account)
+    const balance = await getEarned(bakeryContract, pid, account)
     setBalance(new BigNumber(balance))
-  }, [account, masterChefContract, pid])
+  }, [account, bakeryContract, pid, getEarned, setBalance])
 
   useEffect(() => {
-    if (account && masterChefContract && sushi) {
+    if (account && bakeryContract && kaleido) {
       fetchBalance()
     }
-  }, [account, block, masterChefContract, setBalance, sushi, fetchBalance])
+  }, [account, bakeryContract, kaleido, fetchBalance])
 
   return balance
 }

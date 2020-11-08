@@ -1,18 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import { provider } from 'web3-core'
-
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 import { Contract } from 'web3-eth-contract'
-
 import {
-  getMasterChefContract,
+  getBakeryContract,
   getWethContract,
   getFarms,
   getTotalLPWethValue,
-} from '../sushi/utils'
+} from '../kaleido/utils'
 import useKaleido from './useKaleido'
-import useBlock from './useBlock'
 
 export interface StakedValue {
   tokenAmount: BigNumber
@@ -25,11 +22,10 @@ export interface StakedValue {
 const useAllStakedValue = () => {
   const [balances, setBalance] = useState([] as Array<StakedValue>)
   const { account }: { account: string; ethereum: provider } = useWallet()
-  const sushi = useSushi()
-  const farms = getFarms(sushi)
-  const masterChefContract = getMasterChefContract(sushi)
-  const wethContact = getWethContract(sushi)
-  const block = useBlock()
+  const kaleido = useKaleido()
+  const farms = getFarms(kaleido)
+  const bakeryContract = getBakeryContract(kaleido)
+  const wethContact = getWethContract(kaleido)
 
   const fetchAllStakedValue = useCallback(async () => {
     const balances: Array<StakedValue> = await Promise.all(
@@ -44,7 +40,7 @@ const useAllStakedValue = () => {
           tokenContract: Contract
         }) =>
           getTotalLPWethValue(
-            masterChefContract,
+            bakeryContract,
             wethContact,
             lpContract,
             tokenContract,
@@ -54,13 +50,13 @@ const useAllStakedValue = () => {
     )
 
     setBalance(balances)
-  }, [masterChefContract, farms, wethContact])
+  }, [bakeryContract, farms, wethContact, getTotalLPWethValue, setBalance])
 
   useEffect(() => {
-    if (account && masterChefContract && sushi) {
+    if (account && bakeryContract && kaleido) {
       fetchAllStakedValue()
     }
-  }, [account, block, masterChefContract, setBalance, sushi])
+  }, [account, bakeryContract, kaleido, fetchAllStakedValue])
 
   return balances
 }

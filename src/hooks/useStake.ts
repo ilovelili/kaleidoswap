@@ -1,25 +1,23 @@
 import { useCallback } from 'react'
-
 import useKaleido from './useKaleido'
 import { useWallet } from 'use-wallet'
-
-import { stake, getMasterChefContract } from '../sushi/utils'
+import { stake, getBakeryContract } from '../kaleido/utils'
 
 const useStake = (pid: number) => {
   const { account } = useWallet()
-  const sushi = useSushi()
+  const kaleido = useKaleido()
 
   const handleStake = useCallback(
     async (amount: string) => {
       const txHash = await stake(
-        getMasterChefContract(sushi),
+        getBakeryContract(kaleido),
         pid,
         amount,
         account,
       )
       console.log(txHash)
     },
-    [account, pid, sushi],
+    [account, pid, kaleido, stake, getBakeryContract],
   )
 
   return { onStake: handleStake }

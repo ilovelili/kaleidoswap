@@ -1,20 +1,18 @@
 import { useCallback } from 'react'
-
 import useKaleido from './useKaleido'
 import { useWallet } from 'use-wallet'
-
-import { harvest, getMasterChefContract } from '../sushi/utils'
+import { harvest, getBakeryContract } from '../kaleido/utils'
 
 const useReward = (pid: number) => {
   const { account } = useWallet()
-  const sushi = useSushi()
-  const masterChefContract = getMasterChefContract(sushi)
+  const kaleido = useKaleido()
+  const bakeryContract = getBakeryContract(kaleido)
 
   const handleReward = useCallback(async () => {
-    const txHash = await harvest(masterChefContract, pid, account)
+    const txHash = await harvest(bakeryContract, pid, account)
     console.log(txHash)
     return txHash
-  }, [account, pid, masterChefContract])
+  }, [account, pid, bakeryContract, harvest])
 
   return { onReward: handleReward }
 }

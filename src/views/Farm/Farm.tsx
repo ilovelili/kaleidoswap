@@ -32,7 +32,7 @@ const Farm: React.FC = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const sushi = useSushi()
+  const kaleido = useKaleido()
   const { ethereum } = useWallet()
 
   const lpContract = useMemo(() => {

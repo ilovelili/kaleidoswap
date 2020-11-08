@@ -158,7 +158,7 @@ export const getKaleidoTokenSupply = async (kaleido: Kaleido) => {
 export const stake = async (
   kaleidoBakery: Contract,
   pid: number,
-  amount: number,
+  amount: string,
   account: string,
 ) => {
   return kaleidoBakery.methods
@@ -176,7 +176,7 @@ export const stake = async (
 export const unstake = async (
   kaleidoBakery: Contract,
   pid: number,
-  amount: number,
+  amount: string,
   account: string,
 ) => {
   return kaleidoBakery.methods

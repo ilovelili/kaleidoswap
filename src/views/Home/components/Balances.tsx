@@ -73,7 +73,7 @@ const PendingRewards: React.FC = () => {
 const Balances: React.FC = () => {
   const { t } = useTranslation()
   const [totalSupply, setTotalSupply] = useState<BigNumber>()
-  const sushi = useSushi()
+  const kaleido = useKaleido()
   const sushiBalance = useTokenBalance(getSushiAddress(sushi))
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 

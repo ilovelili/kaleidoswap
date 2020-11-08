@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { provider } from 'web3-core'
-
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
-
 import { getEarned, getBakeryContract, getFarms } from '../kaleido/utils'
 import useKaleido from './useKaleido'
-import useBlock from './useBlock'
 
 const useAllEarnings = () => {
   const [balances, setBalance] = useState([] as Array<BigNumber>)
@@ -14,7 +11,6 @@ const useAllEarnings = () => {
   const kaleido = useKaleido()
   const farms = getFarms(kaleido)
   const bakeryContract = getBakeryContract(kaleido)
-  const block = useBlock()
 
   const fetchAllBalances = useCallback(async () => {
     const balances: Array<BigNumber> = await Promise.all(
@@ -23,13 +19,13 @@ const useAllEarnings = () => {
       ),
     )
     setBalance(balances)
-  }, [farms, account, bakeryContract])
+  }, [farms, account, bakeryContract, getEarned, setBalance])
 
   useEffect(() => {
     if (account && bakeryContract && kaleido) {
       fetchAllBalances()
     }
-  }, [account, block, bakeryContract, setBalance, kaleido, fetchAllBalances])
+  }, [account, bakeryContract, kaleido, fetchAllBalances])
 
   return balances
 }

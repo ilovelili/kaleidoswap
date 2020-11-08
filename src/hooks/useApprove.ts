@@ -1,25 +1,23 @@
 import { useCallback } from 'react'
-
 import useKaleido from './useKaleido'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
-
-import { approve, getMasterChefContract } from '../sushi/utils'
+import { approve, getBakeryContract } from '../kaleido/utils'
 
 const useApprove = (lpContract: Contract) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
-  const sushi = useSushi()
-  const masterChefContract = getMasterChefContract(sushi)
+  const kaleido = useKaleido()
+  const kaleidoContract = getBakeryContract(kaleido)
 
   const handleApprove = useCallback(async () => {
     try {
-      const tx = await approve(lpContract, masterChefContract, account)
+      const tx = await approve(lpContract, kaleidoContract, account)
       return tx
     } catch (e) {
       return false
     }
-  }, [account, lpContract, masterChefContract])
+  }, [account, lpContract, kaleidoContract, approve])
 
   return { onApprove: handleApprove }
 }
