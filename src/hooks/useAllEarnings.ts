@@ -19,7 +19,7 @@ const useAllEarnings = () => {
       ),
     )
     setBalance(balances)
-  }, [farms, account, bakeryContract, getEarned, setBalance])
+  }, [farms, account, bakeryContract, setBalance])
 
   useEffect(() => {
     if (account && bakeryContract && kaleido) {

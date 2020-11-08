@@ -14,7 +14,7 @@ const useTokenBalance = (tokenAddress: string) => {
   const fetchBalance = useCallback(async () => {
     const balance = await getBalance(ethereum, tokenAddress, account)
     setBalance(new BigNumber(balance))
-  }, [ethereum, tokenAddress, account, getBalance, setBalance])
+  }, [ethereum, tokenAddress, account, setBalance])
 
   useEffect(() => {
     if (account && ethereum) {

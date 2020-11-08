@@ -16,8 +16,7 @@
     "lint": "tslint",
     "prepare": "tsc",
     "postinstall": "patch-package",
-    "generate-types": "typechain --target=web3-v2 'build/contracts/*.json'",
-    "fork": "dotenv cross-var ganache-cli --fork %INFURA_URI% --account='%PRIVATE_KEY%,1000000000000000000000'",
+    "fork": "dotenv cross-var ganache-cli --fork https://mainnet.infura.io/v3/%INFURA_API_KEY% --account='%PRIVATE_KEY%,1000000000000000000000'",
     "deploy:sm:local": "deploy.sh development",
     "deploy:sm:fork": "deploy.sh mainnetFork",
     "deploy:sm:testnet": "deploy.sh testnet",
@@ -73,8 +72,6 @@
     "truffle-flattener": "^1.5.0",
     "truffle-plugin-verify": "^0.4.0",
     "ts-lint": "^4.5.1",
-    "typechain": "^3.0.0",
-    "typechain-target-web3-v2": "^1.0.0",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {

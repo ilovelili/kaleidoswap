@@ -63,7 +63,7 @@ const Balances: React.FC = () => {
   const [totalSupply, setTotalSupply] = useState<BigNumber>()
   const kaleido = useKaleido()
   const tokenBalance = useTokenBalance(getTokenAddress(kaleido))
-  const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+  const { account }: { account: any } = useWallet()
 
   useEffect(() => {
     async function fetchTotalSupply() {

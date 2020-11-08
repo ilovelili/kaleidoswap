@@ -7,11 +7,11 @@ import { ContractAddresses, Pool, SupportedPools } from '../pool'
 import { SUBTRACT_GAS_LIMIT } from './constants'
 import { AbiItem } from 'web3-utils'
 
-import ERC20Abi from '../../../build/contracts/ERC20.json'
+import ERC20Abi from '../../abis/ERC20.json'
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
 import WETHAbi from './abi/weth.json'
-import KaleidoBakeryAbi from '../../../build/contracts/KaleidoBakery.json'
-import KaleidoTokenAbi from '../../../build/contracts/KaleidoToken.json'
+import KaleidoBakeryAbi from '../../abis/KaleidoBakery.json'
+import KaleidoTokenAbi from '../../abis/KaleidoToken.json'
 
 export const ConfirmationType = {
   Hash: 0,

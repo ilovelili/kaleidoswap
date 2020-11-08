@@ -13,7 +13,7 @@ const useStakedBalance = (pid: number) => {
   const fetchBalance = useCallback(async () => {
     const balance = await getStaked(bakeryContract, pid, account)
     setBalance(new BigNumber(balance))
-  }, [bakeryContract, pid, account, getStaked, setBalance])
+  }, [bakeryContract, pid, account, setBalance])
 
   useEffect(() => {
     if (account && kaleido) {

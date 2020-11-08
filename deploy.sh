@@ -12,3 +12,6 @@ truffle run verify KaleidoBakery --network $network --license SPDX-License-Ident
 # Flatten Contracts
 ./node_modules/.bin/truffle-flattener contracts/KaleidoToken.sol > flats/KaleidoToken_flat.sol
 ./node_modules/.bin/truffle-flattener contracts/KaleidoBakery.sol > flats/KaleidoBakery_flat.sol
+
+# move abis
+mv build/contracts src/abis

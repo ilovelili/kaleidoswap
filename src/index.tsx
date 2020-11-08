@@ -7,7 +7,7 @@ import ReactGA from 'react-ga'
 import { isMobile } from 'react-device-detect'
 
 // initialize GA
-// todo: GA tracking ID
+// todo: add GA tracking ID in .env
 const GOOGLE_ANALYTICS_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
 if (typeof GOOGLE_ANALYTICS_ID === 'string') {
   ReactGA.initialize(GOOGLE_ANALYTICS_ID)

@@ -70,7 +70,9 @@ const Farm: React.FC = () => {
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <StyledInfo>
-          ⭐️{' '}
+          <span role="img" aria-labelledby="">
+            ⭐️
+          </span>{' '}
           {t(
             'Every time you stake and unstake LP tokens, the contract will automagically harvest KALEIDO rewards for you!',
           )}
@@ -79,7 +81,7 @@ const Farm: React.FC = () => {
         <StyledLink
           target="__blank"
           href={
-            network == 'mainnet'
+            network === 'mainnet'
               ? `https://etherscan.io/address/${lpTokenAddress}`
               : `https://${network}.etherscan.io/address/${lpTokenAddress}`
           }

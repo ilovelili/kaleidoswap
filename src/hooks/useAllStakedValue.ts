@@ -50,7 +50,7 @@ const useAllStakedValue = () => {
     )
 
     setBalance(balances)
-  }, [farms, bakeryContract, wethContact, getTotalLPWethValue, setBalance])
+  }, [farms, bakeryContract, wethContact, setBalance])
 
   useEffect(() => {
     if (account && bakeryContract && kaleido) {

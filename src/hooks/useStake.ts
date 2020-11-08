@@ -17,7 +17,7 @@ const useStake = (pid: number) => {
       )
       console.log(txHash)
     },
-    [kaleido, pid, account, stake, getBakeryContract],
+    [kaleido, pid, account],
   )
 
   return { onStake: handleStake }

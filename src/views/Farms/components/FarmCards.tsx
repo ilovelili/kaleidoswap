@@ -124,15 +124,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
     if (kaleido && account) {
       fetchEarned()
     }
-  }, [
-    kaleido,
-    pid,
-    account,
-    getEarned,
-    getBakeryContract,
-    setHarvestable,
-    bnToDec,
-  ])
+  }, [kaleido, pid, account, setHarvestable])
 
   const poolActive = true // startTime * 1000 - Date.now() <= 0
 
