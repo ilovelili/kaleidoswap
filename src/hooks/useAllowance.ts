@@ -20,7 +20,7 @@ const useAllowance = (lpContract: Contract) => {
       bakeryContract.options.address,
     )
     setAllowance(new BigNumber(allowance))
-  }, [account, bakeryContract, lpContract, getAllowance, setAllowance])
+  }, [lpContract, account, bakeryContract, getAllowance, setAllowance])
 
   useEffect(() => {
     if (account && bakeryContract && lpContract) {

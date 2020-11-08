@@ -24,7 +24,7 @@ const Modals: React.FC = ({ children }) => {
       setContent(modalContent)
       setIsOpen(true)
     },
-    [setContent, setIsOpen, setModalKey],
+    [setModalKey, setContent, setIsOpen],
   )
 
   const handleDismiss = useCallback(() => {

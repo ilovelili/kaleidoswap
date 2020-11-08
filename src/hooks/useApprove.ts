@@ -17,7 +17,7 @@ const useApprove = (lpContract: Contract) => {
     } catch (e) {
       return false
     }
-  }, [account, lpContract, kaleidoContract, approve])
+  }, [approve, lpContract, kaleidoContract, account])
 
   return { onApprove: handleApprove }
 }

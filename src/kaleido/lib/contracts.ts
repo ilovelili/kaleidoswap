@@ -32,7 +32,6 @@ export class Contracts {
 
   kaleidoToken: Contract
   kaleidoBakery: Contract
-  xSushiStaking: Contract
   weth: Contract
 
   constructor(provider: provider, web3: Web3, options: KaleidoOptions) {

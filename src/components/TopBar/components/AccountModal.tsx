@@ -25,7 +25,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   }, [onDismiss, reset])
 
   const kaleido = useKaleido()
-  const sushiBalance = useTokenBalance(getTokenAddress(kaleido))
+  const tokenBalance = useTokenBalance(getTokenAddress(kaleido))
 
   const { t } = useTranslation()
   return (
@@ -44,7 +44,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
               </span>
             </CardIcon>
             <StyledBalance>
-              <Value value={getBalanceNumber(sushiBalance)} />
+              <Value value={getBalanceNumber(tokenBalance)} />
               <Label text="KALEIDO Balance" />
             </StyledBalance>
           </StyledBalanceWrapper>

@@ -32,7 +32,7 @@ const KaleidoProvider: React.FC = ({ children }) => {
         }),
       )
     }
-  }, [ethereum])
+  }, [ethereum, setKaleido])
 
   return <Context.Provider value={{ kaleido }}>{children}</Context.Provider>
 }

@@ -10,11 +10,9 @@ import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
 import KaleidoIcon from '../../../components/KaleidoIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
-import useAllStakedValue from '../../../hooks/useAllStakedValue'
-import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useSushi from '../../../hooks/useKaleido'
-import { getSushiAddress, getSushiSupply } from '../../../sushi/utils'
+import useKaleido from '../../../hooks/useKaleido'
+import { getTokenAddress, getTokenSupply } from '../../../kaleido/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import { useTranslation } from 'react-i18next'
 
@@ -31,20 +29,10 @@ const PendingRewards: React.FC = () => {
       .toNumber()
   }
 
-  const [farms] = useFarms()
-  const allStakedValue = useAllStakedValue()
-
-  if (allStakedValue && allStakedValue.length) {
-    const sumWeth = farms.reduce(
-      (c, { id }, i) => c + (allStakedValue[i].totalWethValue.toNumber() || 0),
-      0,
-    )
-  }
-
   useEffect(() => {
     setStart(end)
     setEnd(sumEarning)
-  }, [sumEarning])
+  }, [end, sumEarning])
 
   return (
     <span
@@ -74,18 +62,18 @@ const Balances: React.FC = () => {
   const { t } = useTranslation()
   const [totalSupply, setTotalSupply] = useState<BigNumber>()
   const kaleido = useKaleido()
-  const sushiBalance = useTokenBalance(getSushiAddress(sushi))
+  const tokenBalance = useTokenBalance(getTokenAddress(kaleido))
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 
   useEffect(() => {
     async function fetchTotalSupply() {
-      const supply = await getSushiSupply(sushi)
+      const supply = await getTokenSupply(kaleido)
       setTotalSupply(supply)
     }
-    if (sushi) {
+    if (kaleido) {
       fetchTotalSupply()
     }
-  }, [sushi, setTotalSupply])
+  }, [kaleido, setTotalSupply])
 
   return (
     <StyledWrapper>
@@ -98,7 +86,7 @@ const Balances: React.FC = () => {
               <div style={{ flex: 1 }}>
                 <Label text={t('Your KALEIDO Balance')} />
                 <Value
-                  value={!!account ? getBalanceNumber(sushiBalance) : 'Locked'}
+                  value={!!account ? getBalanceNumber(tokenBalance) : 'Locked'}
                 />
               </div>
             </StyledBalance>

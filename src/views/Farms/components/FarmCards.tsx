@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { useEffect, useState } from 'react'
 import Countdown, { CountdownRenderProps } from 'react-countdown'
+import { useTranslation } from 'react-i18next'
 import styled, { keyframes } from 'styled-components'
 import { useWallet } from 'use-wallet'
 import Button from '../../../components/Button'
@@ -14,8 +15,8 @@ import useAllStakedValue, {
   StakedValue,
 } from '../../../hooks/useAllStakedValue'
 import useFarms from '../../../hooks/useFarms'
-import useSushi from '../../../hooks/useKaleido'
-import { getEarned, getMasterChefContract } from '../../../sushi/utils'
+import useKaleido from '../../../hooks/useKaleido'
+import { getEarned, getBakeryContract } from '../../../kaleido/utils'
 import { bnToDec } from '../../../utils'
 
 interface FarmWithStakedValue extends Farm, StakedValue {
@@ -28,19 +29,19 @@ const FarmCards: React.FC = () => {
   console.log('account', account)
   const stakedValue = useAllStakedValue()
 
-  const sushiIndex = farms.findIndex(
-    ({ tokenSymbol }) => tokenSymbol === 'SUSHI',
+  const kaleidoIndex = farms.findIndex(
+    ({ tokenSymbol }) => tokenSymbol === 'KALEIDO',
   )
 
   console.log(stakedValue)
 
-  const sushiPrice =
-    sushiIndex >= 0 && stakedValue[sushiIndex]
-      ? stakedValue[sushiIndex].tokenPriceInWeth
+  const kaleidoPrice =
+    kaleidoIndex >= 0 && stakedValue[kaleidoIndex]
+      ? stakedValue[kaleidoIndex].tokenPriceInWeth
       : new BigNumber(0)
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  const SUSHI_PER_BLOCK = new BigNumber(100)
+  const KALEIDO_PER_BLOCK = new BigNumber(100)
 
   const rows = farms.reduce<FarmWithStakedValue[][]>(
     (farmRows, farm, i) => {
@@ -48,8 +49,8 @@ const FarmCards: React.FC = () => {
         ...farm,
         ...stakedValue[i],
         apy: stakedValue[i]
-          ? sushiPrice
-              .times(SUSHI_PER_BLOCK)
+          ? kaleidoPrice
+              .times(KALEIDO_PER_BLOCK)
               .times(BLOCKS_PER_YEAR)
               .times(stakedValue[i].poolWeight)
               .div(stakedValue[i].totalWethValue)
@@ -66,6 +67,7 @@ const FarmCards: React.FC = () => {
     [[]],
   )
 
+  const { t } = useTranslation()
   return (
     <StyledCards>
       {!!rows[0].length ? (
@@ -81,7 +83,7 @@ const FarmCards: React.FC = () => {
         ))
       ) : (
         <StyledLoadingWrapper>
-          <Loader text="Cooking the rice ..." />
+          <Loader text={t('Cooking the rice ...')} />
         </StyledLoadingWrapper>
       )}
     </StyledCards>
@@ -97,7 +99,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [harvestable, setHarvestable] = useState(0)
 
   const { account } = useWallet()
-  const { lpTokenAddress } = farm
+  const { pid } = farm
   const kaleido = useKaleido()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
@@ -112,20 +114,25 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
     )
   }
 
+  const { t } = useTranslation()
   useEffect(() => {
     async function fetchEarned() {
-      if (sushi) return
-      const earned = await getEarned(
-        getMasterChefContract(sushi),
-        lpTokenAddress,
-        account,
-      )
+      if (kaleido) return
+      const earned = await getEarned(getBakeryContract(kaleido), pid, account)
       setHarvestable(bnToDec(earned))
     }
-    if (sushi && account) {
+    if (kaleido && account) {
       fetchEarned()
     }
-  }, [sushi, lpTokenAddress, account, setHarvestable])
+  }, [
+    kaleido,
+    pid,
+    account,
+    getEarned,
+    getBakeryContract,
+    setHarvestable,
+    bnToDec,
+  ])
 
   const poolActive = true // startTime * 1000 - Date.now() <= 0
 
@@ -138,13 +145,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <CardIcon>{farm.icon}</CardIcon>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
-              <StyledDetail>Deposit {farm.lpToken}</StyledDetail>
+              <StyledDetail>
+                {t('Deposit')} {farm.lpToken}
+              </StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>
             <Spacer />
             <Button
               disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
+              text={poolActive ? t('Select') : undefined}
               to={`/farms/${farm.id}`}
             >
               {!poolActive && (
@@ -164,7 +173,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       .toNumber()
                       .toLocaleString('en-US')
                       .slice(0, -1)}%`
-                  : 'Loading ...'}
+                  : t('Loading ...')}
               </span>
               {/* <span>
                 {farm.tokenAmount

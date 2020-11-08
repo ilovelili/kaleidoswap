@@ -10,7 +10,7 @@ const useRedeem = (bakeryContract: Contract) => {
     const txHash = await redeem(bakeryContract, account)
     console.log(txHash)
     return txHash
-  }, [account, bakeryContract, redeem])
+  }, [bakeryContract, account, redeem])
 
   return { onRedeem: handleRedeem }
 }

@@ -12,7 +12,7 @@ const useReward = (pid: number) => {
     const txHash = await harvest(bakeryContract, pid, account)
     console.log(txHash)
     return txHash
-  }, [account, pid, bakeryContract, harvest])
+  }, [bakeryContract, pid, account, harvest])
 
   return { onReward: handleReward }
 }

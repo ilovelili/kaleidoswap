@@ -18,7 +18,7 @@ const TransactionsProvider: React.FC = ({ children }) => {
     (tx: Transaction) => {
       dispatch(addTransaction(tx))
     },
-    [dispatch],
+    [dispatch, addTransaction],
   )
 
   const fetchTransactions = useCallback(async () => {
@@ -29,7 +29,7 @@ const TransactionsProvider: React.FC = ({ children }) => {
     } catch (e) {
       console.log(e)
     }
-  }, [dispatch])
+  }, [dispatch, setTransactions])
 
   useEffect(() => {
     if (initialized) {

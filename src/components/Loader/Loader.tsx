@@ -11,11 +11,11 @@ const Loader: React.FC<LoaderProps> = ({ text }) => {
   return (
     <StyledLoader>
       <CardIcon>
-        <StyledSushi>
+        <StyledKaleido>
           <span role="img" aria-labelledby="">
-            🍣
+            🍰
           </span>
-        </StyledSushi>
+        </StyledKaleido>
       </CardIcon>
       {!!text && <StyledText>{text}</StyledText>}
     </StyledLoader>
@@ -38,7 +38,7 @@ const StyledLoader = styled.div`
   justify-content: center;
 `
 
-const StyledSushi = styled.div`
+const StyledKaleido = styled.div`
   font-size: 32px;
   position: relative;
   animation: 1s ${spin} infinite;

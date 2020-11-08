@@ -13,7 +13,7 @@ const useEarnings = (pid: number) => {
   const fetchBalance = useCallback(async () => {
     const balance = await getEarned(bakeryContract, pid, account)
     setBalance(new BigNumber(balance))
-  }, [account, bakeryContract, pid, getEarned, setBalance])
+  }, [bakeryContract, pid, account, getEarned, setBalance])
 
   useEffect(() => {
     if (account && bakeryContract && kaleido) {

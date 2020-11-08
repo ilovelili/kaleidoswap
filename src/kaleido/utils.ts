@@ -149,7 +149,7 @@ export const approveAddress = async (
     .send({ from: account })
 }
 
-export const getKaleidoTokenSupply = async (kaleido: Kaleido) => {
+export const getTokenSupply = async (kaleido: Kaleido) => {
   return new BigNumber(
     await kaleido.contracts.kaleidoToken.methods.totalSupply().call(),
   )

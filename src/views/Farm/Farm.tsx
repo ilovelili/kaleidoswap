@@ -8,8 +8,8 @@ import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
-import useSushi from '../../hooks/useKaleido'
-import { getMasterChefContract } from '../../sushi/utils'
+import useKaleido from '../../hooks/useKaleido'
+import { getBakeryContract } from '../../kaleido/utils'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
@@ -39,7 +39,7 @@ const Farm: React.FC = () => {
     return getContract(ethereum as provider, lpTokenAddress)
   }, [ethereum, lpTokenAddress])
 
-  useRedeem(getMasterChefContract(sushi))
+  useRedeem(getBakeryContract(kaleido))
 
   const lpTokenName = useMemo(() => {
     return lpToken
@@ -50,6 +50,7 @@ const Farm: React.FC = () => {
   }, [earnToken])
 
   const { t } = useTranslation()
+  const network = process.env.REACT_APP_NETWORK
   return (
     <>
       <PageHeader
@@ -77,9 +78,13 @@ const Farm: React.FC = () => {
         <Spacer size="md" />
         <StyledLink
           target="__blank"
-          href={`https://sushiswap.vision/pair/${lpTokenAddress}`}
+          href={
+            network == 'mainnet'
+              ? `https://etherscan.io/address/${lpTokenAddress}`
+              : `https://${network}.etherscan.io/address/${lpTokenAddress}`
+          }
         >
-          {lpTokenName} Info
+          {lpTokenName} {t('Info')}
         </StyledLink>
       </StyledFarm>
     </>

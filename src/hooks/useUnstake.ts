@@ -13,7 +13,7 @@ const useUnstake = (pid: number) => {
       const txHash = await unstake(bakeryContract, pid, amount, account)
       console.log(txHash)
     },
-    [account, pid, bakeryContract, unstake],
+    [bakeryContract, pid, account, unstake],
   )
 
   return { onUnstake: handleUnstake }
