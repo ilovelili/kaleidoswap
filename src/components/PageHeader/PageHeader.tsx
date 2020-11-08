@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import baker from '../../assets/img/baker.png'
 
 import Container from '../Container'
 
 interface PageHeaderProps {
-  icon: React.ReactNode
+  icon?: React.ReactNode
   subtitle?: string
   title?: string
 }
@@ -13,7 +14,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
     <Container size="sm">
       <StyledPageHeader>
-        <StyledIcon>{icon}</StyledIcon>
+        <StyledIcon>
+          {icon ? icon : <img src={baker} height="80" alt="bakery" />}
+        </StyledIcon>
         <StyledTitle>{title}</StyledTitle>
         <StyledSubtitle>{subtitle}</StyledSubtitle>
       </StyledPageHeader>
@@ -32,11 +35,11 @@ const StyledPageHeader = styled.div`
 `
 
 const StyledIcon = styled.div`
-  font-size: 120px;
-  height: 120px;
-  line-height: 120px;
+  font-size: 80px;
+  height: 80px;
+  line-height: 80px;
   text-align: center;
-  width: 120px;
+  width: 80px;
 `
 
 const StyledTitle = styled.h1`
@@ -45,7 +48,7 @@ const StyledTitle = styled.h1`
   font-size: 36px;
   text-align: center;
   font-weight: 700;
-  margin: 0;
+  margin: 30px 0 0 0;
   padding: 0;
 `
 

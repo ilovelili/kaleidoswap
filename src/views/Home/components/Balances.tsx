@@ -15,6 +15,7 @@ import useKaleido from '../../../hooks/useKaleido'
 import { getTokenAddress, getTokenSupply } from '../../../kaleido/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import { useTranslation } from 'react-i18next'
+import useIsMounted from '../../../hooks/useIsMounted'
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
@@ -64,16 +65,19 @@ const Balances: React.FC = () => {
   const kaleido = useKaleido()
   const tokenBalance = useTokenBalance(getTokenAddress(kaleido))
   const { account }: { account: any } = useWallet()
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     async function fetchTotalSupply() {
       const supply = await getTokenSupply(kaleido)
-      setTotalSupply(supply)
+      if (isMounted()) {
+        setTotalSupply(supply)
+      }
     }
     if (kaleido) {
       fetchTotalSupply()
     }
-  }, [kaleido, setTotalSupply])
+  }, [kaleido, setTotalSupply, isMounted])
 
   return (
     <StyledWrapper>

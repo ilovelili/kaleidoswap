@@ -35,8 +35,4 @@ const StyledText = styled.span`
   }
 `
 
-const MasterChefText = styled.span`
-  font-family: 'Kaushan Script', sans-serif;
-`
-
 export default Logo

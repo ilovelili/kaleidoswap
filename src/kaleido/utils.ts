@@ -86,7 +86,7 @@ export const getTotalLPWethValue = async (
 
   const tokenDecimals = await tokenContract.methods.decimals().call()
 
-  // Get the share of lpContract that masterChefContract owns
+  // Get the share of lpContract that bakeryContract owns
   const balance = await lpContract.methods
     .balanceOf(kaleidoBakery.options.address)
     .call()

@@ -15,6 +15,7 @@ import useAllStakedValue, {
   StakedValue,
 } from '../../../hooks/useAllStakedValue'
 import useFarms from '../../../hooks/useFarms'
+import useIsMounted from '../../../hooks/useIsMounted'
 import useKaleido from '../../../hooks/useKaleido'
 import { getEarned, getBakeryContract } from '../../../kaleido/utils'
 import { bnToDec } from '../../../utils'
@@ -25,15 +26,11 @@ interface FarmWithStakedValue extends Farm, StakedValue {
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
-  const { account } = useWallet()
-  console.log('account', account)
   const stakedValue = useAllStakedValue()
 
   const kaleidoIndex = farms.findIndex(
     ({ tokenSymbol }) => tokenSymbol === 'KALEIDO',
   )
-
-  console.log(stakedValue)
 
   const kaleidoPrice =
     kaleidoIndex >= 0 && stakedValue[kaleidoIndex]
@@ -115,16 +112,20 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
   const { t } = useTranslation()
+  const isMounted = useIsMounted()
+
   useEffect(() => {
     async function fetchEarned() {
       if (kaleido) return
       const earned = await getEarned(getBakeryContract(kaleido), pid, account)
-      setHarvestable(bnToDec(earned))
+      if (isMounted()) {
+        setHarvestable(bnToDec(earned))
+      }
     }
     if (kaleido && account) {
       fetchEarned()
     }
-  }, [kaleido, pid, account, setHarvestable])
+  }, [kaleido, pid, account, setHarvestable, isMounted])
 
   const poolActive = true // startTime * 1000 - Date.now() <= 0
 

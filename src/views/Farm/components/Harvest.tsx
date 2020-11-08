@@ -9,12 +9,20 @@ import Value from '../../../components/Value'
 import useEarnings from '../../../hooks/useEarnings'
 import useReward from '../../../hooks/useReward'
 import { getBalanceNumber } from '../../../utils/formatBalance'
+import { useParams } from 'react-router-dom'
+import useFarm from '../../../hooks/useFarm'
+import CardIcon from '../../../components/CardIcon'
 
 interface HarvestProps {
   pid: number
 }
 
 const Harvest: React.FC<HarvestProps> = ({ pid }) => {
+  const { farmId } = useParams<{ farmId?: string }>()
+  const { icon } = useFarm(farmId) || {
+    icon: '',
+  }
+
   const { t } = useTranslation()
   const earnings = useEarnings(pid)
   const [pendingTx, setPendingTx] = useState(false)
@@ -25,7 +33,7 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            {/* <CardIcon></CardIcon> */}
+            <CardIcon>{icon}</CardIcon>
             <Value value={getBalanceNumber(earnings)} />
             <Label text={t('KALEIDO Earned')} />
           </StyledCardHeader>

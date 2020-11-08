@@ -10,6 +10,7 @@ import {
   getTotalLPWethValue,
 } from '../kaleido/utils'
 import useKaleido from './useKaleido'
+import useIsMounted from './useIsMounted'
 
 export interface StakedValue {
   tokenAmount: BigNumber
@@ -26,6 +27,7 @@ const useAllStakedValue = () => {
   const farms = getFarms(kaleido)
   const bakeryContract = getBakeryContract(kaleido)
   const wethContact = getWethContract(kaleido)
+  const isMounted = useIsMounted()
 
   const fetchAllStakedValue = useCallback(async () => {
     const balances: Array<StakedValue> = await Promise.all(
@@ -49,7 +51,9 @@ const useAllStakedValue = () => {
       ),
     )
 
-    setBalance(balances)
+    if (isMounted()) {
+      setBalance(balances)
+    }
   }, [farms, bakeryContract, wethContact, setBalance])
 
   useEffect(() => {
