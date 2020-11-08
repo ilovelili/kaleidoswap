@@ -9,7 +9,7 @@ const resolveChainID = (network: string) => {
     case 'kovan':
       return 42
     default:
-      return 1337 //dev
+      return 1337 // dev
   }
 }
 

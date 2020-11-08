@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import useSushi from './useSushi'
+import useKaleido from './useKaleido'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import {

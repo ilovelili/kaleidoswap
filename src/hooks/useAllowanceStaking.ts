@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
-import useSushi from './useSushi'
+import useKaleido from './useKaleido'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
 import { getAllowance } from '../utils/erc20'
-import { getSushiContract, getXSushiStakingContract } from '../sushi/utils'
+import { getTokenContract, getXSushiStakingContract } from '../kaleido/utils'
 
 const useAllowanceStaking = () => {
   const [allowance, setAllowance] = useState(new BigNumber(0))

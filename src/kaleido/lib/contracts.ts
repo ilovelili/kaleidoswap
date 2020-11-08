@@ -5,11 +5,13 @@ import BigNumber from 'bignumber.js'
 import { Contract } from 'web3-eth-contract'
 import { ContractAddresses, Pool, SupportedPools } from '../pool'
 import { SUBTRACT_GAS_LIMIT } from './constants'
-const UNIV2PairAbi = require('./abi/uni_v2_lp.json')
-const KaleidoBakeryAbi = require('./abi/kaleidobakery.json')
-const KaleidoTokenAbi = require('./abi/kaleidotoken.json')
-const WETHAbi = require('./abi/weth.json')
-const ERC20Abi = require('./abi/erc20.json')
+import { AbiItem } from 'web3-utils'
+
+import ERC20Abi from '../../../build/contracts/ERC20.json'
+import UNIV2PairAbi from './abi/uni_v2_lp.json'
+import WETHAbi from './abi/weth.json'
+import KaleidoBakeryAbi from '../../../build/contracts/KaleidoBakery.json'
+import KaleidoTokenAbi from '../../../build/contracts/KaleidoToken.json'
 
 export const ConfirmationType = {
   Hash: 0,
@@ -23,8 +25,8 @@ export class Contracts {
   defaultConfirmations: number
   autoGasMultiplier: number
   confirmationType: number
-  defaultGas: number
-  defaultGasPrice: BigNumber
+  defaultGas: string
+  defaultGasPrice: string
   blockGasLimit: number
   pools: Pool[]
 
@@ -42,16 +44,24 @@ export class Contracts {
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    this.kaleidoToken = new this.web3.eth.Contract(KaleidoTokenAbi)
-    this.kaleidoBakery = new this.web3.eth.Contract(KaleidoBakeryAbi)
-    this.weth = new this.web3.eth.Contract(WETHAbi)
+    this.kaleidoToken = new this.web3.eth.Contract(
+      (KaleidoTokenAbi.abi as unknown) as AbiItem,
+    )
+    this.kaleidoBakery = new this.web3.eth.Contract(
+      (KaleidoBakeryAbi.abi as unknown) as AbiItem,
+    )
+    this.weth = new this.web3.eth.Contract((WETHAbi as unknown) as AbiItem)
 
     this.pools = SupportedPools.map((pool) =>
       Object.assign(pool, {
         lpAddress: pool.lpAddress,
         tokenAddress: pool.tokenAddress,
-        lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
-        tokenContract: new this.web3.eth.Contract(ERC20Abi),
+        lpContract: new this.web3.eth.Contract(
+          (UNIV2PairAbi as unknown) as AbiItem,
+        ),
+        tokenContract: new this.web3.eth.Contract(
+          (ERC20Abi.abi as unknown) as AbiItem,
+        ),
       }),
     )
 

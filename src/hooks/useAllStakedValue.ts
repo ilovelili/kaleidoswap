@@ -11,7 +11,7 @@ import {
   getFarms,
   getTotalLPWethValue,
 } from '../sushi/utils'
-import useSushi from './useSushi'
+import useKaleido from './useKaleido'
 import useBlock from './useBlock'
 
 export interface StakedValue {

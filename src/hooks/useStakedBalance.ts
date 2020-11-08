@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
 import { getStaked, getMasterChefContract } from '../sushi/utils'
-import useSushi from './useSushi'
+import useKaleido from './useKaleido'
 import useBlock from './useBlock'
 
 const useStakedBalance = (pid: number) => {

@@ -1,17 +1,17 @@
 import Web3 from 'web3'
 import { AddAccount, provider } from 'web3-core'
-import BigNumber from 'bignumber.js'
 import { Contracts } from './lib/contracts'
 import { ContractAddresses } from './pool'
 
 export interface KaleidoOptions {
-  ethereumNodeTimeout: number
-  defaultAccount: string
-  defaultConfirmations: number
-  autoGasMultiplier: number
-  confirmationType: number
-  defaultGas: number
-  defaultGasPrice: BigNumber
+  ethereumNodeTimeout?: number
+  defaultAccount?: string
+  defaultConfirmations?: number
+  autoGasMultiplier?: number
+  confirmationType?: number
+  defaultGas?: string
+  defaultGasPrice?: string
+  accounts?: any[]
 }
 
 export class Kaleido {
