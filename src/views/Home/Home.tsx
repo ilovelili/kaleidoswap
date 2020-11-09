@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon={<img src={logo} height={120} alt="logo" />}
-        title={t('KaleidoSwap Bakery is Ready')}
+        title={t('Kaleido Bakery is Ready')}
         subtitle={t(
           'Stake KaleidoSwap LP tokens to claim your own KALEIDO token!',
         )}

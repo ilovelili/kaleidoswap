@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useSushi from '../../../hooks/useSushi'
-import { getSushiAddress } from '../../../sushi/utils'
+import useKaleido from '../../../hooks/useKaleido'
+import { getTokenAddress } from '../../../kaleido/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import Button from '../../Button'
 import CardIcon from '../../CardIcon'
@@ -14,6 +14,7 @@ import ModalContent from '../../ModalContent'
 import ModalTitle from '../../ModalTitle'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
+import { useTranslation } from 'react-i18next'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, reset } = useWallet()
@@ -23,12 +24,13 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     reset()
   }, [onDismiss, reset])
 
-  const sushi = useSushi()
-  const sushiBalance = useTokenBalance(getSushiAddress(sushi))
+  const kaleido = useKaleido()
+  const tokenBalance = useTokenBalance(getTokenAddress(kaleido))
 
+  const { t } = useTranslation()
   return (
     <Modal>
-      <ModalTitle text="My Account" />
+      <ModalTitle text={t('My Account')} />
       <ModalContent>
         <Spacer />
 
@@ -37,12 +39,12 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
             <CardIcon>
               <span>
                 <span role="img" aria-labelledby="">
-                  🍣
+                  🍰
                 </span>
               </span>
             </CardIcon>
             <StyledBalance>
-              <Value value={getBalanceNumber(sushiBalance)} />
+              <Value value={getBalanceNumber(tokenBalance)} />
               <Label text="KALEIDO Balance" />
             </StyledBalance>
           </StyledBalanceWrapper>
@@ -51,18 +53,18 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <Spacer />
         <Button
           href={`https://etherscan.io/address/${account}`}
-          text="View on Etherscan"
+          text={t('View on Etherscan')}
           variant="secondary"
         />
         <Spacer />
         <Button
           onClick={handleSignOutClick}
-          text="Sign out"
-          variant="secondary"
+          text={t('Sign out')}
+          variant={t('secondary')}
         />
       </ModalContent>
       <ModalActions>
-        <Button onClick={onDismiss} text="Cancel" />
+        <Button onClick={onDismiss} text={t('Cancel')} />
       </ModalActions>
     </Modal>
   )

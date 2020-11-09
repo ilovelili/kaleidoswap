@@ -1,35 +1,35 @@
 import { useCallback, useEffect, useState } from 'react'
 import { provider } from 'web3-core'
-
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
-
-import { getEarned, getMasterChefContract, getFarms } from '../sushi/utils'
-import useSushi from './useSushi'
-import useBlock from './useBlock'
+import { getEarned, getBakeryContract, getFarms } from '../kaleido/utils'
+import useKaleido from './useKaleido'
+import useIsMounted from './useIsMounted'
 
 const useAllEarnings = () => {
+  const isMounted = useIsMounted()
   const [balances, setBalance] = useState([] as Array<BigNumber>)
   const { account }: { account: string; ethereum: provider } = useWallet()
-  const sushi = useSushi()
-  const farms = getFarms(sushi)
-  const masterChefContract = getMasterChefContract(sushi)
-  const block = useBlock()
+  const kaleido = useKaleido()
+  const farms = getFarms(kaleido)
+  const bakeryContract = getBakeryContract(kaleido)
 
   const fetchAllBalances = useCallback(async () => {
     const balances: Array<BigNumber> = await Promise.all(
       farms.map(({ pid }: { pid: number }) =>
-        getEarned(masterChefContract, pid, account),
+        getEarned(bakeryContract, pid, account),
       ),
     )
-    setBalance(balances)
-  }, [farms, account, masterChefContract])
+    if (isMounted()) {
+      setBalance(balances)
+    }
+  }, [farms, account, bakeryContract, setBalance, isMounted])
 
   useEffect(() => {
-    if (account && masterChefContract && sushi) {
+    if (account && bakeryContract && kaleido) {
       fetchAllBalances()
     }
-  }, [account, block, masterChefContract, setBalance, sushi, fetchAllBalances])
+  }, [account, bakeryContract, kaleido, fetchAllBalances])
 
   return balances
 }

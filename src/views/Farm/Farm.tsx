@@ -8,38 +8,35 @@ import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
-import useSushi from '../../hooks/useSushi'
-import { getMasterChefContract } from '../../sushi/utils'
+import useKaleido from '../../hooks/useKaleido'
+import { getBakeryContract } from '../../kaleido/utils'
 import { getContract } from '../../utils/erc20'
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
   const { farmId } = useParams<{ farmId?: string }>()
-  const { pid, lpToken, lpTokenAddress, earnToken, name, icon } = useFarm(
-    farmId,
-  ) || {
+  const { pid, lpToken, lpTokenAddress, earnToken, name } = useFarm(farmId) || {
     pid: 0,
     lpToken: '',
     lpTokenAddress: '',
     tokenAddress: '',
     earnToken: '',
     name: '',
-    icon: '',
   }
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const sushi = useSushi()
+  const kaleido = useKaleido()
   const { ethereum } = useWallet()
 
   const lpContract = useMemo(() => {
     return getContract(ethereum as provider, lpTokenAddress)
   }, [ethereum, lpTokenAddress])
 
-  useRedeem(getMasterChefContract(sushi))
+  useRedeem(getBakeryContract(kaleido))
 
   const lpTokenName = useMemo(() => {
     return lpToken
@@ -50,11 +47,11 @@ const Farm: React.FC = () => {
   }, [earnToken])
 
   const { t } = useTranslation()
+  const network = process.env.REACT_APP_NETWORK
   return (
     <>
       <PageHeader
-        icon={icon}
-        subtitle={t(`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName}`)}
+        subtitle={t(`Deposit ${lpTokenName} tokens and earn ${earnTokenName}`)}
         title={name}
       />
       <StyledFarm>
@@ -69,7 +66,9 @@ const Farm: React.FC = () => {
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <StyledInfo>
-          ⭐️{' '}
+          <span role="img" aria-labelledby="">
+            ⭐️
+          </span>{' '}
           {t(
             'Every time you stake and unstake LP tokens, the contract will automagically harvest KALEIDO rewards for you!',
           )}
@@ -77,9 +76,13 @@ const Farm: React.FC = () => {
         <Spacer size="md" />
         <StyledLink
           target="__blank"
-          href={`https://sushiswap.vision/pair/${lpTokenAddress}`}
+          href={
+            network === 'mainnet'
+              ? `https://etherscan.io/address/${lpTokenAddress}`
+              : `https://${network}.etherscan.io/address/${lpTokenAddress}`
+          }
         >
-          {lpTokenName} Info
+          {lpTokenName} {t('Info')}
         </StyledLink>
       </StyledFarm>
     </>

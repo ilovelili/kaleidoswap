@@ -6,7 +6,7 @@ import logo from '../../assets/img/logo.svg'
 const Logo: React.FC = () => {
   return (
     <StyledLogo to="/">
-      <img src={logo} height="32" style={{ marginTop: -4 }} />
+      <img src={logo} height="32" style={{ marginTop: -4 }} alt="logo" />
       <StyledText>KaleidoSwap</StyledText>
     </StyledLogo>
   )
@@ -33,10 +33,6 @@ const StyledText = styled.span`
   @media (max-width: 400px) {
     display: none;
   }
-`
-
-const MasterChefText = styled.span`
-  font-family: 'Kaushan Script', sans-serif;
 `
 
 export default Logo

@@ -6,7 +6,7 @@ const useModal = (modal: React.ReactNode, key?: string) => {
 
   const handlePresent = useCallback(() => {
     onPresent(modal, key)
-  }, [key, modal, onPresent])
+  }, [modal, key, onPresent])
 
   return [handlePresent, onDismiss]
 }

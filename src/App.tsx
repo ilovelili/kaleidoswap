@@ -7,7 +7,7 @@ import TopBar from './components/TopBar'
 import FarmsProvider from './contexts/Farms'
 import ModalsProvider from './contexts/Modals'
 import TransactionProvider from './contexts/Transactions'
-import SushiProvider from './contexts/SushiProvider'
+import KaleidoProvider from './contexts/KaleidoProvider'
 import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
@@ -54,13 +54,13 @@ const Providers: React.FC = ({ children }) => {
           walletconnect: { rpcUrl },
         }}
       >
-        <SushiProvider>
+        <KaleidoProvider>
           <TransactionProvider>
             <FarmsProvider>
               <ModalsProvider>{children}</ModalsProvider>
             </FarmsProvider>
           </TransactionProvider>
-        </SushiProvider>
+        </KaleidoProvider>
       </UseWalletProvider>
     </ThemeProvider>
   )
