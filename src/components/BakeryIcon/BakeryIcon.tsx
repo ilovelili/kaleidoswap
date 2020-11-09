@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import bakery from '../../assets/img/bakery.svg'
+import lp from '../../assets/img/lp.svg'
 
 const BekeryIcon: React.FC = () => (
   <StyledBakeryIcon>
-    <img src={bakery} height="45" alt="bakery" />
+    <img src={lp} height="70" alt="bakery" />
   </StyledBakeryIcon>
 )
 

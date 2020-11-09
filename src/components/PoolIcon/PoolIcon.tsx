@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import baker from '../../assets/img/baker.png'
+import pool from '../../assets/img/pool.svg'
 
-const BekerIcon: React.FC = () => (
-  <StyledBakerIcon>
-    <img src={baker} height="45" alt="baker" />
-  </StyledBakerIcon>
+const PoolIcon: React.FC = () => (
+  <StyledPoolIcon>
+    <img src={pool} height="45" alt="Pool" />
+  </StyledPoolIcon>
 )
 
-const StyledBakerIcon = styled.div`
+const StyledPoolIcon = styled.div`
   background-color: ${(props) => props.theme.color.grey[200]};
   font-size: 36px;
   height: 80px;
@@ -22,4 +22,4 @@ const StyledBakerIcon = styled.div`
   margin: 0 auto ${(props) => props.theme.spacing[3]}px;
 `
 
-export default BekerIcon
+export default PoolIcon

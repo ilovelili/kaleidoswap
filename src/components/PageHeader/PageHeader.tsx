@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import baker from '../../assets/img/baker.png'
+import pool from '../../assets/img/pool.svg'
 
 import Container from '../Container'
 
@@ -15,7 +15,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
     <Container size="sm">
       <StyledPageHeader>
         <StyledIcon>
-          {icon ? icon : <img src={baker} height="80" alt="bakery" />}
+          {icon ? icon : <img src={pool} height="100" alt="bakery" />}
         </StyledIcon>
         <StyledTitle>{title}</StyledTitle>
         <StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -35,11 +35,11 @@ const StyledPageHeader = styled.div`
 `
 
 const StyledIcon = styled.div`
-  font-size: 80px;
-  height: 80px;
-  line-height: 80px;
+  font-size: 100px;
+  height: 100px;
+  line-height: 100px;
   text-align: center;
-  width: 80px;
+  width: 100px;
 `
 
 const StyledTitle = styled.h1`
