@@ -54,7 +54,7 @@ const useAllStakedValue = () => {
     if (isMounted()) {
       setBalance(balances)
     }
-  }, [farms, bakeryContract, wethContact, setBalance])
+  }, [farms, bakeryContract, wethContact, setBalance, isMounted])
 
   useEffect(() => {
     if (account && bakeryContract && kaleido) {

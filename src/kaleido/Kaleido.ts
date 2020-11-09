@@ -1,5 +1,6 @@
 import Web3 from 'web3'
-import { AddAccount, provider } from 'web3-core'
+import { AddAccount } from 'web3-core'
+import { typeProvider } from '../utils/typeProvider'
 import { Contracts } from './lib/contracts'
 import { ContractAddresses } from './pool'
 
@@ -21,7 +22,7 @@ export class Kaleido {
   bakeryAddress: string
   wethAddress: string
 
-  constructor(provider: provider, options: KaleidoOptions) {
+  constructor(provider: typeProvider, options: KaleidoOptions) {
     var realProvider
 
     if (typeof provider === 'string') {
@@ -50,7 +51,7 @@ export class Kaleido {
     this.wethAddress = ContractAddresses.weth
   }
 
-  setProvider(provider: provider) {
+  setProvider(provider: typeProvider) {
     this.web3.setProvider(provider)
     this.contracts.setProvider(provider)
   }

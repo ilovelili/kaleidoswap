@@ -16,16 +16,13 @@ import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
   const { farmId } = useParams<{ farmId?: string }>()
-  const { pid, lpToken, lpTokenAddress, earnToken, name, icon } = useFarm(
-    farmId,
-  ) || {
+  const { pid, lpToken, lpTokenAddress, earnToken, name } = useFarm(farmId) || {
     pid: 0,
     lpToken: '',
     lpTokenAddress: '',
     tokenAddress: '',
     earnToken: '',
     name: '',
-    icon: '',
   }
 
   useEffect(() => {

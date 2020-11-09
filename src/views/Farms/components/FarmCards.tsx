@@ -92,8 +92,8 @@ interface FarmCardProps {
 }
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
-  const [startTime, setStartTime] = useState(0)
-  const [harvestable, setHarvestable] = useState(0)
+  const [startTime] = useState(0)
+  const [, setHarvestable] = useState(0)
 
   const { account } = useWallet()
   const { pid } = farm

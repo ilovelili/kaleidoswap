@@ -1,6 +1,5 @@
 import { KaleidoOptions } from '../Kaleido'
 import Web3 from 'web3'
-import { provider } from 'web3-core'
 import BigNumber from 'bignumber.js'
 import { Contract } from 'web3-eth-contract'
 import { ContractAddresses, Pool, SupportedPools } from '../pool'
@@ -12,6 +11,7 @@ import UNIV2PairAbi from './abi/uni_v2_lp.json'
 import WETHAbi from './abi/weth.json'
 import KaleidoBakeryAbi from '../../abis/KaleidoBakery.json'
 import KaleidoTokenAbi from '../../abis/KaleidoToken.json'
+import { typeProvider } from '../../utils/typeProvider'
 
 export const ConfirmationType = {
   Hash: 0,
@@ -34,7 +34,7 @@ export class Contracts {
   kaleidoBakery: Contract
   weth: Contract
 
-  constructor(provider: provider, web3: Web3, options: KaleidoOptions) {
+  constructor(provider: typeProvider, web3: Web3, options: KaleidoOptions) {
     this.web3 = web3
     this.defaultConfirmations = options.defaultConfirmations
     this.autoGasMultiplier = options.autoGasMultiplier || 1.5
@@ -68,7 +68,7 @@ export class Contracts {
     this.setDefaultAccount(this.web3.eth.defaultAccount)
   }
 
-  setProvider(provider: provider) {
+  setProvider(provider: typeProvider) {
     this.web3.setProvider(provider)
 
     this.kaleidoToken.options.address = ContractAddresses.kaleidoToken
