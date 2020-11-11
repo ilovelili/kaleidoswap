@@ -4,7 +4,7 @@ import { useWallet } from 'use-wallet'
 import { getEarned, getBakeryContract } from '../kaleido/utils'
 import useKaleido from './useKaleido'
 
-const useEarnings = (pid: number) => {
+const useEarnings = (pid: number, interval: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))
   const { account }: { account: string } = useWallet()
   const kaleido = useKaleido()
@@ -18,6 +18,9 @@ const useEarnings = (pid: number) => {
   useEffect(() => {
     if (account && bakeryContract && kaleido) {
       fetchBalance()
+      if (interval) {
+        setInterval(fetchBalance, interval)
+      }
     }
   }, [account, bakeryContract, kaleido, fetchBalance])
 

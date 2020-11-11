@@ -26,9 +26,15 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   }, [account, onDismiss])
 
   const { t } = useTranslation()
+  const resolveTitle = (service: string) => {
+    return networkName.toLowerCase() === 'mainnet'
+      ? service
+      : `${service} (${networkName})`
+  }
+
   return (
     <Modal>
-      <ModalTitle text={t('Select a wallet provider.')} />
+      <ModalTitle text={t(`Select a wallet provider.`)} />
 
       <ModalContent>
         <StyledWalletsWrapper>
@@ -38,7 +44,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
                 <img src={metamaskLogo} style={{ height: 32 }} alt="Metamask" />
               }
               onConnect={() => connect('injected')}
-              title="Metamask"
+              title={resolveTitle('Metamask')}
             />
           </StyledWalletCard>
           <Spacer size="sm" />
@@ -52,7 +58,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
                 />
               }
               onConnect={() => connect('walletconnect')}
-              title="WalletConnect"
+              title={resolveTitle('WalletConnect')}
             />
           </StyledWalletCard>
         </StyledWalletsWrapper>

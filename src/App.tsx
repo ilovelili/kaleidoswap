@@ -12,9 +12,17 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import './utils/I18n'
-import resolveChainID from './utils/network'
+import { resolveChainID, resolveNetwork } from './utils/network'
+import { useTranslation } from 'react-i18next'
+
+declare global {
+  interface Window {
+    ethereum: any
+  }
+}
 
 const App: React.FC = () => {
+  const { t } = useTranslation()
   const [mobileMenu, setMobileMenu] = useState(false)
 
   const handleDismissMobileMenu = useCallback(() => {
@@ -24,6 +32,19 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
+
+  if (window.ethereum) {
+    // window.ethereum.autoRefreshOnNetworkChange = false
+    // window.ethereum.on('networkChanged', function (networkId: number) {
+    //   window.onbeforeunload = function () {
+    //     const network = resolveNetwork(networkId)
+    //     if (network !== 'mainnet' && network !== 'rinkeby') {
+    //       return t(`Switching to ${resolveNetwork(networkId)} is not supported`)
+    //     }
+    //     return t(`Switching to ${resolveNetwork(networkId)}`)
+    //   }
+    // })
+  }
 
   return (
     <Providers>

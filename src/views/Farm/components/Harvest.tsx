@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import Button from '../../../components/Button'
@@ -23,8 +23,8 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
     icon: '',
   }
 
+  const earnings = useEarnings(pid, 5000)
   const { t } = useTranslation()
-  const earnings = useEarnings(pid)
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useReward(pid)
 
