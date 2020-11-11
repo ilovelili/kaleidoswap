@@ -20,10 +20,19 @@ export const SupportedPools: Pool[] = [
     pid: 0,
     lpAddress: addresses.LP_ethDai,
     tokenAddress: addresses.Dai,
-    name: 'Strawberry Cheese',
+    name: 'DAI Strawberry',
     symbol: 'DAI-ETH LP',
     tokenSymbol: 'DAI',
     icon: '🍰',
+  },
+  {
+    pid: 1,
+    lpAddress: addresses.LP_ethKaleido,
+    tokenAddress: addresses.Dai,
+    name: 'KALEIDO Donuts',
+    symbol: 'KALIEOD-ETH LP',
+    tokenSymbol: 'KALEIDO',
+    icon: '🍩',
   },
 ]
 

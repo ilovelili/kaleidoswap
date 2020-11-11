@@ -10,6 +10,7 @@ const mainnet = {
   Weth: TokensMainnet.Weth,
   Dai: TokensMainnet.Dai,
   LP_ethDai: TokensMainnet.LiquidityProvider.ethDai,
+  LP_ethKaleido: TokensRinkeby.LiquidityProvider.ethKaleido,
 }
 
 const rinkeby = {
@@ -18,6 +19,7 @@ const rinkeby = {
   Weth: TokensRinkeby.Weth,
   Dai: TokensRinkeby.Dai,
   LP_ethDai: TokensRinkeby.LiquidityProvider.ethDai,
+  LP_ethKaleido: TokensRinkeby.LiquidityProvider.ethKaleido,
 }
 
 const network = process.env.REACT_APP_NETWORK
@@ -37,6 +39,7 @@ const addresses = (() => {
         Weth: '',
         Dai: '',
         LP_ethDai: '',
+        LP_ethKaleido: '',
       }
   }
 })()
