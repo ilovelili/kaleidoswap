@@ -12,8 +12,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import './utils/I18n'
-import { resolveChainID, resolveNetwork } from './utils/network'
-import { useTranslation } from 'react-i18next'
+import { resolveChainID } from './utils/network'
 
 declare global {
   interface Window {
@@ -22,7 +21,6 @@ declare global {
 }
 
 const App: React.FC = () => {
-  const { t } = useTranslation()
   const [mobileMenu, setMobileMenu] = useState(false)
 
   const handleDismissMobileMenu = useCallback(() => {

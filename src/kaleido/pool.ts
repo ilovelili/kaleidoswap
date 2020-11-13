@@ -16,6 +16,15 @@ export interface Pool {
 
 // Todo: add all supported pools here
 export const SupportedPools: Pool[] = [
+  // {
+  //   pid: 1,
+  //   lpAddress: addresses.LP_ethKaleido,
+  //   tokenAddress: addresses.Kaleido,
+  //   name: 'KALEIDO Donuts',
+  //   symbol: 'KALIEOD-ETH LP',
+  //   tokenSymbol: 'KALEIDO',
+  //   icon: '🍩',
+  // },
   {
     pid: 0,
     lpAddress: addresses.LP_ethDai,
@@ -25,19 +34,19 @@ export const SupportedPools: Pool[] = [
     tokenSymbol: 'DAI',
     icon: '🍰',
   },
-  {
-    pid: 1,
-    lpAddress: addresses.LP_ethKaleido,
-    tokenAddress: addresses.Dai,
-    name: 'KALEIDO Donuts',
-    symbol: 'KALIEOD-ETH LP',
-    tokenSymbol: 'KALEIDO',
-    icon: '🍩',
-  },
+  // {
+  //   pid: 2,
+  //   lpAddress: addresses.LP_ethUsdt,
+  //   tokenAddress: addresses.Usdt,
+  //   name: 'USDT Soft Cream',
+  //   symbol: 'USDT-ETH LP',
+  //   tokenSymbol: 'USDT',
+  //   icon: '🍦',
+  // },
 ]
 
 export const ContractAddresses = {
-  kaleidoToken: web3.utils.toChecksumAddress(addresses.kaleidoToken),
+  kaleidoToken: web3.utils.toChecksumAddress(addresses.Kaleido),
   kaleidoBakery: web3.utils.toChecksumAddress(addresses.kaleidoBakery),
   weth: web3.utils.toChecksumAddress(addresses.Weth),
 }

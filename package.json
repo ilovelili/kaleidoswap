@@ -14,7 +14,6 @@
     "test": "react-scripts test",
     "format": "prettier --write \"./src/**/*.{js,ts,tsx}\"",
     "lint": "tslint",
-    "prepare": "tsc",
     "postinstall": "patch-package",
     "fork": "dotenv cross-var ganache-cli --fork https://mainnet.infura.io/v3/%INFURA_API_KEY% --account='%PRIVATE_KEY%,1000000000000000000000'",
     "deploy:sm:local": "deploy.sh development",
@@ -23,10 +22,10 @@
     "deploy:sm:mainnet": "deploy.sh mainnet",
     "deploy:sm:testnet:dry-run": "truffle migrate --reset --network testnet --dry-run",
     "deploy:sm:mainnet:dry-run": "truffle migrate --reset --network mainnet --dry-run",
-    "deploy:frontend": "yarn build && cp ./build/index.html ./build/200.html && surge ./build kaleidoswap.org",
+    "deploy:frontend": "yarn build && surge ./build kaleidoswap.org",
     "docker:build": "docker build -t ilovelili/kaleidoswap .",
     "docker:build:no-cache": "docker build --no-cache -t ilovelili/kaleidoswap .",
-    "docker:run": "docker run -d ilovelili/kaleidoswap"
+    "docker:run": "docker run -p 80:80 -d ilovelili/kaleidoswap"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^3.1.0",
@@ -68,6 +67,7 @@
     "cross-var": "^1.1.0",
     "ganache-cli": "^6.12.1",
     "ganache-core": "^2.13.1",
+    "surge": "^0.21.7",
     "truffle": "^5.1.41",
     "truffle-flattener": "^1.5.0",
     "truffle-plugin-verify": "^0.4.0",

@@ -22,7 +22,7 @@ const useEarnings = (pid: number, interval: number) => {
         setInterval(fetchBalance, interval)
       }
     }
-  }, [account, bakeryContract, kaleido, fetchBalance])
+  }, [account, bakeryContract, kaleido, interval, fetchBalance])
 
   return balance
 }
